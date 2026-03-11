@@ -5,7 +5,7 @@
     var elements = getElements();
     var renderer = new window.ConclaveRenderer(elements, {});
 
-    renderer.setStatus("Loading story…", "Reading the local content files.", false);
+    renderer.setStatus("Loading story...", "Reading the local content files.", false);
     loadAppData().then(function (data) {
       startApp(data.settings, data.story, elements, renderer);
     }).catch(function (error) {
@@ -42,7 +42,10 @@
       throw new Error("The story file does not contain the expected 26 screens.");
     }
 
+    document.title = settings.appTitle || document.title;
     window.ConclaveUtils.applyBackgroundImage(settings.backgroundImage, settings.showBackgroundImage);
+    window.ConclaveUtils.applyUiSettings(settings.ui);
+    renderer.settings = settings;
 
     var engine = new window.ConclaveStoryEngine(story, settings);
     var audioController = new window.ConclaveAudioController(

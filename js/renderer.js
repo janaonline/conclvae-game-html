@@ -61,11 +61,20 @@
 
   StoryRenderer.prototype.renderActions = function (screen, actions) {
     var utils = window.ConclaveUtils;
-    var isStackLayout = screen.actionLayout === "stacked";
-    var targetContainer = isStackLayout ? this.elements.actionStack : this.elements.actionFooter;
+    var actionPresentation = getActionPresentation(actions);
+    var targetContainer = actionPresentation.container === "footer"
+      ? this.elements.actionFooter
+      : this.elements.actionStack;
 
     utils.clearNode(this.elements.actionStack);
     utils.clearNode(this.elements.actionFooter);
+    this.elements.actionArea.dataset.layout = actionPresentation.layout;
+    this.elements.actionStack.dataset.layout = actionPresentation.container === "stack"
+      ? actionPresentation.layout
+      : "";
+    this.elements.actionFooter.dataset.layout = actionPresentation.container === "footer"
+      ? actionPresentation.layout
+      : "";
 
     for (var index = 0; index < actions.length; index += 1) {
       var action = actions[index];
@@ -103,6 +112,36 @@
   StoryRenderer.prototype.stopTransition = function () {
     this.elements.layout.classList.remove("is-transitioning");
   };
+
+  function getActionPresentation(actions) {
+    var actionCount = Array.isArray(actions) ? actions.length : 0;
+
+    if (actionCount === 1) {
+      return {
+        container: "footer",
+        layout: "single"
+      };
+    }
+
+    if (actionCount === 2) {
+      return {
+        container: "footer",
+        layout: "split"
+      };
+    }
+
+    if (actionCount === 4) {
+      return {
+        container: "stack",
+        layout: "grid-2x2"
+      };
+    }
+
+    return {
+      container: "stack",
+      layout: "stack"
+    };
+  }
 
   window.ConclaveRenderer = StoryRenderer;
 }());
