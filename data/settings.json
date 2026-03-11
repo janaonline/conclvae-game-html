@@ -1,0 +1,19 @@
+{
+  "appTitle": "Conclave Story Experience",
+  "clickThreshold": 10,
+  "defaultFrustration": 0,
+  "showBackgroundImage": true,
+  "backgroundImage": "assets/images/ui/background.jpg",
+  "enableAudio": false,
+  "audioToggleIcon": "assets/icons/audio-toggle.svg",
+  "audioFiles": [
+    {
+      "src": "assets/audio/bg-loop.mp4",
+      "type": "audio/mp4"
+    },
+    {
+      "src": "assets/audio/optional-fallback.mp3",
+      "type": "audio/mpeg"
+    }
+  ]
+}

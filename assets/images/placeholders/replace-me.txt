@@ -1,0 +1,1 @@
+Replace the files in assets/images/screens/, assets/images/ui/, and assets/audio/ using the same filenames.

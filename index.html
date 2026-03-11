@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light only">
+  <title>Conclave Story Experience</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="app-shell" id="app-shell">
+    <main class="story-layout" id="story-layout" aria-live="polite">
+      <section class="visual-column" aria-label="Story image panel">
+        <div class="visual-frame" id="visual-frame">
+          <img class="screen-image" id="screen-image" alt="">
+          <div class="image-placeholder" id="image-placeholder">
+            <p class="placeholder-label">Image placeholder</p>
+            <p class="placeholder-copy" id="placeholder-copy">Replace the matching image file to update this screen.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="content-column">
+        <header class="meter" id="meter" hidden>
+          <div class="meter-row">
+            <span class="meter-label" id="meter-label">FRUSTRATION METER</span>
+            <span class="meter-value" id="meter-value">0%</span>
+          </div>
+          <div class="meter-track" aria-hidden="true">
+            <div class="meter-fill" id="meter-fill"></div>
+          </div>
+        </header>
+
+        <section class="story-copy" aria-labelledby="screen-title">
+          <h1 class="screen-title" id="screen-title"></h1>
+          <div class="screen-description" id="screen-description"></div>
+        </section>
+
+        <section class="action-area" id="action-area">
+          <div class="action-stack" id="action-stack"></div>
+          <footer class="action-footer" id="action-footer"></footer>
+        </section>
+      </section>
+    </main>
+
+    <button class="audio-toggle" id="audio-toggle" type="button" hidden>
+      <img class="audio-toggle-icon" id="audio-toggle-icon" src="assets/icons/audio-toggle.svg" alt="">
+      <span class="visually-hidden" id="audio-toggle-text">Audio off</span>
+    </button>
+
+    <div class="status-card" id="status-card" role="status" aria-live="polite">
+      <p class="status-title" id="status-title">Loading story…</p>
+      <p class="status-copy" id="status-copy">Reading the local content files.</p>
+      <button class="status-action" id="status-action" type="button" hidden></button>
+    </div>
+
+    <div class="visually-hidden" id="sr-live-region" aria-live="polite"></div>
+  </div>
+
+  <script src="js/utils.js"></script>
+  <script src="js/story-engine.js"></script>
+  <script src="js/renderer.js"></script>
+  <script src="js/audio.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
