@@ -8,9 +8,15 @@
   <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
+  <div class="ambient-backdrop" aria-hidden="true">
+    <div class="ambient-orb ambient-orb-one"></div>
+    <div class="ambient-orb ambient-orb-two"></div>
+    <div class="ambient-orb ambient-orb-three"></div>
+  </div>
+
   <div class="app-shell" id="app-shell">
     <div class="app-frame">
-      <main class="story-layout" id="story-layout" aria-live="polite">
+      <main class="story-layout" id="story-layout" aria-live="polite" data-screen-type="choice" data-frustration-band="low">
         <section class="visual-column" aria-label="Story image panel">
           <div class="visual-frame" id="visual-frame">
             <img class="screen-image" id="screen-image" alt="">
@@ -22,6 +28,12 @@
         </section>
 
         <section class="content-column">
+          <header class="story-meta" id="story-meta">
+            <p class="screen-chip" id="screen-chip">Decision</p>
+            <p class="screen-progress" id="screen-progress">Scene 1 / 26</p>
+            <p class="click-counter" id="click-counter">0 moves</p>
+          </header>
+
           <header class="meter" id="meter" hidden>
             <div class="meter-row">
               <span class="meter-label" id="meter-label">FRUSTRATION METER</span>
@@ -47,6 +59,10 @@
       <button class="audio-toggle" id="audio-toggle" type="button" hidden>
         <img class="audio-toggle-icon" id="audio-toggle-icon" src="assets/icons/audio-toggle.svg" alt="">
         <span class="visually-hidden" id="audio-toggle-text">Audio off</span>
+      </button>
+
+      <button class="restart-control" id="restart-button" type="button">
+        Restart Game
       </button>
     </div>
 

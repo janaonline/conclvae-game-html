@@ -46,6 +46,7 @@
     window.ConclaveUtils.applyBackgroundImage(settings.backgroundImage, settings.showBackgroundImage);
     window.ConclaveUtils.applyUiSettings(settings.ui);
     renderer.settings = settings;
+    renderer.setStory(story);
 
     var engine = new window.ConclaveStoryEngine(story, settings);
     var audioController = new window.ConclaveAudioController(
@@ -56,8 +57,9 @@
     );
 
     audioController.init();
-    bindActions(elements, engine, renderer);
-    renderer.render(engine.getCurrentViewModel());
+    bindActions(elements, engine, renderer, audioController);
+    bindRestartControl(elements, engine, renderer, audioController);
+    renderer.render(engine.getCurrentViewModel(), { initial: true });
     renderer.setStatus("Story ready", "Edit data/story.json or replace the matching assets to customize the experience.", true);
     renderer.setStatusAction("", true, null);
     renderer.announce("Loaded " + story.screens.length + " screens.");
@@ -93,7 +95,7 @@
     });
   }
 
-  function bindActions(elements, engine, renderer) {
+  function bindActions(elements, engine, renderer, audioController) {
     if (elements.actionArea.dataset.bound === "true") {
       return;
     }
@@ -107,13 +109,37 @@
       }
 
       try {
+        audioController.handleStoryAction();
         var viewModel = engine.handleAction(button.dataset.actionId);
         renderer.render(viewModel);
+        audioController.handleScreenChange(viewModel);
         renderer.announce(viewModel.title + ". " + viewModel.clickCount + " clicks so far.");
       } catch (error) {
         renderer.setStatus("Action error", error.message, false);
       }
     });
+  }
+
+  function bindRestartControl(elements, engine, renderer, audioController) {
+    if (!elements.restartButton || elements.restartButton.dataset.bound === "true") {
+      return;
+    }
+
+    elements.restartButton.dataset.bound = "true";
+    elements.restartButton.addEventListener("click", function () {
+      restartStory(engine, renderer, audioController);
+    });
+  }
+
+  function restartStory(engine, renderer, audioController) {
+    var viewModel;
+
+    audioController.handleStoryAction();
+    engine.reset();
+    viewModel = engine.getCurrentViewModel();
+    renderer.render(viewModel);
+    audioController.handleScreenChange(viewModel);
+    renderer.announce("Game restarted. " + viewModel.title + ".");
   }
 
   function getElements() {
@@ -124,6 +150,7 @@
       audioToggle: document.getElementById("audio-toggle"),
       audioToggleIcon: document.getElementById("audio-toggle-icon"),
       audioToggleText: document.getElementById("audio-toggle-text"),
+      clickCounter: document.getElementById("click-counter"),
       description: document.getElementById("screen-description"),
       image: document.getElementById("screen-image"),
       layout: document.getElementById("story-layout"),
@@ -132,6 +159,9 @@
       meterFill: document.getElementById("meter-fill"),
       meterValue: document.getElementById("meter-value"),
       placeholderCopy: document.getElementById("placeholder-copy"),
+      restartButton: document.getElementById("restart-button"),
+      screenChip: document.getElementById("screen-chip"),
+      screenProgress: document.getElementById("screen-progress"),
       statusAction: document.getElementById("status-action"),
       statusCard: document.getElementById("status-card"),
       statusCopy: document.getElementById("status-copy"),
