@@ -196,6 +196,66 @@
     document.documentElement.style.setProperty("--background-image", value);
   }
 
+  function applyUiSettings(uiSettings) {
+    var root = document.documentElement;
+    var ui = uiSettings || {};
+
+    setCssVariable(root, "--page-bg", ui.pageBackground);
+    setCssVariable(root, "--panel-bg", ui.panelBackground);
+    setCssVariable(root, "--text-strong", ui.textStrong);
+    setCssVariable(root, "--text-body", ui.textBody);
+    setCssVariable(root, "--text-muted", ui.textMuted);
+    setCssVariable(root, "--border-soft", ui.borderSoft);
+    setCssVariable(root, "--border-strong", ui.borderStrong);
+    setCssVariable(root, "--button-primary-bg", ui.buttonPrimaryBackground);
+    setCssVariable(root, "--button-primary-text", ui.buttonPrimaryText);
+    setCssVariable(root, "--button-secondary-bg", ui.buttonSecondaryBackground);
+    setCssVariable(root, "--button-secondary-text", ui.buttonSecondaryText);
+    setCssVariable(root, "--focus-ring", ui.focusRing);
+    setCssVariable(root, "--meter-track", ui.meterTrack);
+    setCssVariable(root, "--meter-fill", ui.meterFill);
+    setCssVariable(root, "--shadow-soft", ui.shadowSoft);
+    setCssVariable(root, "--transition-fast", ui.transitionFast);
+    setCssVariable(root, "--transition-medium", ui.transitionMedium);
+    setCssVariable(root, "--app-font-family", ui.fontFamily);
+    setCssVariable(root, "--app-body-line-height", ui.bodyLineHeight);
+    setCssVariable(root, "--app-title-line-height", ui.titleLineHeight);
+    setCssVariable(root, "--app-title-size", ui.titleSize);
+    setCssVariable(root, "--app-body-font-size", ui.bodyFontSize);
+    setCssVariable(root, "--app-button-font-size", ui.buttonFontSize);
+    setCssVariable(root, "--app-button-radius", appendPixelUnit(ui.buttonRadius));
+    setCssVariable(root, "--app-frame-radius", appendPixelUnit(ui.frameRadius));
+    setCssVariable(root, "--app-visual-radius", appendPixelUnit(ui.visualRadius));
+    setCssVariable(root, "--app-button-gap", appendRemUnit(ui.buttonGapRem));
+    setCssVariable(root, "--app-copy-actions-gap", appendRemUnit(ui.copyActionsGapRem));
+    setCssVariable(root, "--app-visual-max-width", appendPixelUnit(ui.visualMaxWidth));
+    setCssVariable(root, "--app-visual-max-height", appendPixelUnit(ui.visualMaxHeight));
+  }
+
+  function setCssVariable(root, name, value) {
+    if (value == null || value === "") {
+      return;
+    }
+
+    root.style.setProperty(name, String(value));
+  }
+
+  function appendPixelUnit(value) {
+    if (!Number.isFinite(Number(value))) {
+      return null;
+    }
+
+    return Number(value) + "px";
+  }
+
+  function appendRemUnit(value) {
+    if (!Number.isFinite(Number(value))) {
+      return null;
+    }
+
+    return Number(value) + "rem";
+  }
+
   function getActionClassNames(action) {
     var classes = ["story-action"];
     var styleName = action && action.style ? action.style : "secondary";
@@ -213,6 +273,7 @@
 
   window.ConclaveUtils = {
     applyBackgroundImage: applyBackgroundImage,
+    applyUiSettings: applyUiSettings,
     clampNumber: clampNumber,
     clearNode: clearNode,
     createNode: createNode,

@@ -13,6 +13,53 @@ It is driven by two editable files:
 
 The app is designed so a non-technical editor can replace files with the same names and edit simple JSON text without using a build step or a server.
 
+## How to customize fonts, spacing, colors, and animation
+
+Open `data/settings.json` and edit the `ui` section.
+
+Example:
+
+```json
+"ui": {
+  "fontFamily": "\"Segoe UI\", Arial, Helvetica, sans-serif",
+  "bodyLineHeight": 1.52,
+  "titleLineHeight": 1.04,
+  "titleSize": "clamp(2rem, 2.9vw, 3.1rem)",
+  "bodyFontSize": "clamp(0.98rem, 0.96vw, 1.08rem)",
+  "buttonFontSize": "clamp(0.95rem, 0.92vw, 1.02rem)",
+  "buttonRadius": 2,
+  "frameRadius": 0,
+  "visualRadius": 0,
+  "buttonGapRem": 0.68,
+  "copyActionsGapRem": 0.72,
+  "pageBackground": "#1b1b1b",
+  "panelBackground": "#ecebea",
+  "buttonPrimaryBackground": "#6a6967",
+  "buttonPrimaryText": "#f4f2ee",
+  "transitionMedium": "260ms ease"
+}
+```
+
+What each setting changes:
+
+- `fontFamily`: the main font used across the app
+- `bodyLineHeight`: paragraph spacing
+- `titleLineHeight`: title spacing
+- `titleSize`: title font size
+- `bodyFontSize`: paragraph font size
+- `buttonFontSize`: button font size
+- `buttonRadius`: roundness of all action buttons
+- `frameRadius`: roundness of the main outer card
+- `visualRadius`: roundness of the left image panel
+- `buttonGapRem`: space between buttons
+- `copyActionsGapRem`: space between the story text and the buttons
+- `pageBackground` and `panelBackground`: the overall dark or light theme colors
+- `buttonPrimaryBackground` and `buttonPrimaryText`: the main call-to-action button colors
+- `textStrong`, `textBody`, `textMuted`: title and paragraph colors
+- `transitionFast` and `transitionMedium`: hover and screen-change motion timing
+
+Save the file and reopen `index.html` to see the new look.
+
 ## How to open it offline
 
 1. Open the project folder.
@@ -150,6 +197,14 @@ Example:
 ```
 
 If you change `"target": "screen-02"` to `"target": "screen-03"`, that button will go to screen 3 instead.
+
+Button layout is automatic based on how many actions are on that screen:
+
+- 1 button: single button aligned at the bottom right
+- 2 buttons: side by side
+- 3 buttons: stacked vertically
+- 4 buttons: a 2 by 2 grid
+- 5 or more buttons: stacked vertically
 
 ## How to change frustration values
 
