@@ -1,4 +1,6 @@
 (function () {
+  var EXPECTED_SCREEN_COUNT = 49;
+
   document.addEventListener("DOMContentLoaded", init);
 
   function init() {
@@ -38,9 +40,7 @@
   }
 
   function startApp(settings, story, elements, renderer) {
-    if (!story.screens || story.screens.length !== 26) {
-      throw new Error("The story file does not contain the expected 26 screens.");
-    }
+    validateStory(story);
 
     window.ConclaveUtils.applyBackgroundImage(settings.backgroundImage, settings.showBackgroundImage);
 
@@ -53,7 +53,7 @@
     );
 
     audioController.init();
-    bindActions(elements, engine, renderer);
+    bindActions(elements, engine, renderer, audioController);
     renderer.render(engine.getCurrentViewModel());
     renderer.setStatus("Story ready", "Edit data/story.json or replace the matching assets to customize the experience.", true);
     renderer.setStatusAction("", true, null);
@@ -90,12 +90,12 @@
     });
   }
 
-  function bindActions(elements, engine, renderer) {
-    if (elements.actionArea.dataset.bound === "true") {
+  function bindActions(elements, engine, renderer, audioController) {
+    if (elements.layout.dataset.controlsBound === "true") {
       return;
     }
 
-    elements.actionArea.dataset.bound = "true";
+    elements.layout.dataset.controlsBound = "true";
     elements.actionArea.addEventListener("click", function (event) {
       var button = event.target.closest("button[data-action-id]");
 
@@ -104,6 +104,7 @@
       }
 
       try {
+        audioController.playClick();
         var viewModel = engine.handleAction(button.dataset.actionId);
         renderer.render(viewModel);
         renderer.announce(viewModel.title + ". " + viewModel.clickCount + " clicks so far.");
@@ -111,6 +112,83 @@
         renderer.setStatus("Action error", error.message, false);
       }
     });
+
+    elements.restartButton.addEventListener("click", function () {
+      audioController.playClick();
+      var viewModel = engine.restart();
+      renderer.render(viewModel);
+      renderer.announce("Restarted. " + viewModel.title + ".");
+    });
+
+    elements.backButton.addEventListener("click", function () {
+      audioController.playClick();
+      var viewModel = engine.canGoBack() ? engine.goBack() : engine.restart();
+      renderer.render(viewModel);
+      renderer.announce(viewModel.title + ".");
+    });
+  }
+
+  function validateStory(story) {
+    var screenIds = {};
+    var actionIds = {};
+    var screens = story && Array.isArray(story.screens) ? story.screens : [];
+
+    if (screens.length !== EXPECTED_SCREEN_COUNT) {
+      throw new Error("The story file does not contain the expected " + EXPECTED_SCREEN_COUNT + " screens.");
+    }
+
+    for (var screenIndex = 0; screenIndex < screens.length; screenIndex += 1) {
+      var screen = screens[screenIndex];
+
+      if (!screen.id) {
+        throw new Error("A screen is missing its id.");
+      }
+
+      if (screenIds[screen.id]) {
+        throw new Error("Duplicate screen id found: " + screen.id);
+      }
+
+      screenIds[screen.id] = true;
+
+      if (screen.revealBlocks && !Array.isArray(screen.revealBlocks)) {
+        throw new Error("Screen " + screen.id + " has invalid revealBlocks data.");
+      }
+    }
+
+    if (!screenIds[story.startScreenId]) {
+      throw new Error("The start screen id does not match any screen.");
+    }
+
+    for (screenIndex = 0; screenIndex < screens.length; screenIndex += 1) {
+      screen = screens[screenIndex];
+      var actions = Array.isArray(screen.actions) ? screen.actions : [];
+
+      for (var actionIndex = 0; actionIndex < actions.length; actionIndex += 1) {
+        var action = actions[actionIndex];
+
+        if (!action.id) {
+          throw new Error("A screen action is missing its id on " + screen.id + ".");
+        }
+
+        if (actionIds[action.id]) {
+          throw new Error("Duplicate action id found: " + action.id);
+        }
+
+        actionIds[action.id] = true;
+
+        if (action.type !== "goto" && action.type !== "restart") {
+          throw new Error("Unsupported action type on " + action.id + ": " + action.type);
+        }
+
+        if (!action.target) {
+          throw new Error("Action " + action.id + " is missing a target.");
+        }
+
+        if (!screenIds[action.target]) {
+          throw new Error("Action " + action.id + " points to missing screen " + action.target + ".");
+        }
+      }
+    }
   }
 
   function getElements() {
@@ -121,6 +199,7 @@
       audioToggle: document.getElementById("audio-toggle"),
       audioToggleIcon: document.getElementById("audio-toggle-icon"),
       audioToggleText: document.getElementById("audio-toggle-text"),
+      backButton: document.getElementById("back-button"),
       description: document.getElementById("screen-description"),
       image: document.getElementById("screen-image"),
       layout: document.getElementById("story-layout"),
@@ -129,6 +208,7 @@
       meterFill: document.getElementById("meter-fill"),
       meterValue: document.getElementById("meter-value"),
       placeholderCopy: document.getElementById("placeholder-copy"),
+      restartButton: document.getElementById("restart-button"),
       statusAction: document.getElementById("status-action"),
       statusCard: document.getElementById("status-card"),
       statusCopy: document.getElementById("status-copy"),

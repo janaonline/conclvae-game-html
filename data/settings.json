@@ -4,7 +4,7 @@
   "defaultFrustration": 0,
   "showBackgroundImage": true,
   "backgroundImage": "assets/images/ui/background.jpg",
-  "enableAudio": false,
+  "enableAudio": true,
   "audioToggleIcon": "assets/icons/audio-toggle.svg",
   "audioFiles": [
     {

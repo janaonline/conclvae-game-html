@@ -2,20 +2,36 @@
   function StoryRenderer(elements, settings) {
     this.elements = elements;
     this.settings = settings || {};
+    this.pendingTimers = [];
+    this.renderVersion = 0;
   }
 
   StoryRenderer.prototype.render = function (viewModel) {
     var screen = viewModel.screen;
+    var renderVersion = this.renderVersion + 1;
 
+    this.renderVersion = renderVersion;
+    this.clearPendingTimers();
     this.startTransition();
-    window.setTimeout(function () {
+    this.schedule(function () {
+      this.renderHeaderControls(viewModel);
       this.renderMeter(viewModel.meter);
-      this.renderCopy(viewModel.title, viewModel.description);
+      this.renderCopy(viewModel, renderVersion);
       this.renderImage(screen);
-      this.renderActions(screen, viewModel.actions);
       this.elements.layout.dataset.screenId = screen.id;
-      this.stopTransition();
-    }.bind(this), 20);
+      this.schedule(function () {
+        if (renderVersion !== this.renderVersion) {
+          return;
+        }
+
+        this.stopTransition();
+      }.bind(this), 240);
+    }.bind(this), 70);
+  };
+
+  StoryRenderer.prototype.renderHeaderControls = function (viewModel) {
+    this.elements.backButton.disabled = !viewModel.canGoBack;
+    this.elements.backButton.setAttribute("aria-disabled", viewModel.canGoBack ? "false" : "true");
   };
 
   StoryRenderer.prototype.renderMeter = function (meter) {
@@ -29,15 +45,46 @@
     this.elements.meterFill.style.width = window.ConclaveUtils.toPercent(meter.displayValue);
   };
 
-  StoryRenderer.prototype.renderCopy = function (title, description) {
+  StoryRenderer.prototype.renderCopy = function (viewModel, renderVersion) {
     var utils = window.ConclaveUtils;
+    var copyBlocks = this.getCopyBlocks(viewModel.description, viewModel.revealBlocks);
+    var totalDelay = 0;
+    var hasDelayedReveal = false;
 
-    this.elements.title.textContent = title || "";
+    this.elements.title.textContent = viewModel.title || "";
     utils.clearNode(this.elements.description);
+    this.clearActionContainers();
 
-    for (var index = 0; index < description.length; index += 1) {
-      this.elements.description.appendChild(utils.createNode("p", "", description[index]));
+    for (var index = 0; index < copyBlocks.length; index += 1) {
+      totalDelay += copyBlocks[index].delayMs;
+      hasDelayedReveal = hasDelayedReveal || copyBlocks[index].delayMs > 0;
+
+      if (totalDelay === 0) {
+        this.appendCopyBlock(copyBlocks[index]);
+        continue;
+      }
+
+      this.schedule(function (block) {
+        if (renderVersion !== this.renderVersion) {
+          return;
+        }
+
+        this.appendCopyBlock(block);
+      }.bind(this, copyBlocks[index]), totalDelay);
     }
+
+    if (totalDelay === 0) {
+      this.renderActions(viewModel.screen, viewModel.actions, false);
+      return;
+    }
+
+    this.schedule(function () {
+      if (renderVersion !== this.renderVersion) {
+        return;
+      }
+
+      this.renderActions(viewModel.screen, viewModel.actions, hasDelayedReveal);
+    }.bind(this), totalDelay);
   };
 
   StoryRenderer.prototype.renderImage = function (screen) {
@@ -59,13 +106,13 @@
     image.src = screen.image || "";
   };
 
-  StoryRenderer.prototype.renderActions = function (screen, actions) {
+  StoryRenderer.prototype.renderActions = function (screen, actions, shouldFocus) {
     var utils = window.ConclaveUtils;
-    var isStackLayout = screen.actionLayout === "stacked";
-    var targetContainer = isStackLayout ? this.elements.actionStack : this.elements.actionFooter;
+    var layout = this.resolveActionLayout(screen, actions);
+    var targetContainer = layout === "stacked" ? this.elements.actionStack : this.elements.actionFooter;
 
-    utils.clearNode(this.elements.actionStack);
-    utils.clearNode(this.elements.actionFooter);
+    this.clearActionContainers();
+    this.elements.actionFooter.dataset.layout = layout;
 
     for (var index = 0; index < actions.length; index += 1) {
       var action = actions[index];
@@ -77,6 +124,86 @@
       button.textContent = action.label;
       button.setAttribute("aria-label", action.label);
       targetContainer.appendChild(button);
+    }
+
+    if (shouldFocus && targetContainer.firstElementChild) {
+      var activeElement = document.activeElement;
+
+      if (!activeElement || activeElement === document.body || activeElement === document.documentElement) {
+        targetContainer.firstElementChild.focus();
+      }
+    }
+  };
+
+  StoryRenderer.prototype.getCopyBlocks = function (description, revealBlocks) {
+    var blocks = [];
+    var index;
+
+    for (index = 0; index < description.length; index += 1) {
+      blocks.push({
+        delayMs: 0,
+        style: "",
+        text: description[index]
+      });
+    }
+
+    for (index = 0; index < revealBlocks.length; index += 1) {
+      blocks.push({
+        delayMs: Number(revealBlocks[index].delayMs) || 0,
+        style: revealBlocks[index].style || "",
+        text: revealBlocks[index].text || ""
+      });
+    }
+
+    return blocks;
+  };
+
+  StoryRenderer.prototype.appendCopyBlock = function (block) {
+    var className = block.style === "prompt" ? "is-prompt" : "";
+
+    this.elements.description.appendChild(window.ConclaveUtils.createNode("p", className, block.text));
+  };
+
+  StoryRenderer.prototype.resolveActionLayout = function (screen, actions) {
+    if (actions.length === 4) {
+      return "grid";
+    }
+
+    if (screen.actionLayout === "stacked" || screen.actionLayout === "grid" || screen.actionLayout === "split") {
+      return screen.actionLayout;
+    }
+
+    if (screen.actionLayout === "footer") {
+      return actions.length === 2 ? "split" : "single";
+    }
+
+    if (actions.length === 1) {
+      return "single";
+    }
+
+    if (actions.length === 2) {
+      return "split";
+    }
+
+    return "stacked";
+  };
+
+  StoryRenderer.prototype.clearActionContainers = function () {
+    window.ConclaveUtils.clearNode(this.elements.actionStack);
+    window.ConclaveUtils.clearNode(this.elements.actionFooter);
+    this.elements.actionFooter.dataset.layout = "single";
+  };
+
+  StoryRenderer.prototype.schedule = function (callback, delayMs) {
+    var timeoutId = window.setTimeout(callback, delayMs);
+
+    this.pendingTimers.push(timeoutId);
+    return timeoutId;
+  };
+
+  StoryRenderer.prototype.clearPendingTimers = function () {
+    while (this.pendingTimers.length) {
+      window.clearTimeout(this.pendingTimers.pop());
     }
   };
 

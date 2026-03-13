@@ -4,46 +4,39 @@
     {
       "id": "screen-01",
       "type": "choice",
-      "title": "Neighbourpura's Broken Road",
+      "title": "Welcome to Neighbourpura",
       "description": [
-        "Neighbourpura is a colony in an Indian city. People in Neighbourpura work in Citynagar. Some walk, some drive, and some take the bus.",
-        "The road that connects Neighbourpura to the Citynagar main road is broken. No footpaths. The road is dug up for pipelines, wiring, sewerage, construction damage, etc. One day, some Neighbourpura residents decided to get the road fixed."
+        "Neighbourpura is a colony in an Indian city. Its residents work in Citynagar. Some walk, some drive, and some take the bus.",
+        "The road connecting Neighbourpura to the Citynagar main road is in poor condition - dug up for pipelines, wiring, sewerage, and construction, with no footpaths. One day, some Neighbourpura residents decide to get the road fixed.",
+        "What will you do?"
       ],
       "image": "assets/images/screens/screen-01.jpg",
-      "imageAlt": "A broken road in a city colony, dug up for pipelines with no footpaths",
+      "imageAlt": "Residents standing near a badly damaged road in their colony",
       "showMeter": true,
       "meter": {
         "mode": "fixed",
         "value": 25
       },
-      "actionLayout": "stacked",
       "actions": [
         {
           "id": "screen-01-encourage",
-          "label": "Encourage the residents go ahead",
+          "label": "Encourage the residents to go ahead",
           "type": "goto",
-          "target": "screen-02",
+          "target": "screen-08",
           "style": "option"
         },
         {
           "id": "screen-01-join",
           "label": "Join the residents",
           "type": "goto",
-          "target": "screen-02",
+          "target": "screen-11",
           "style": "option"
         },
         {
           "id": "screen-01-no-point",
           "label": "Tell them there is no point",
           "type": "goto",
-          "target": "screen-03",
-          "style": "option"
-        },
-        {
-          "id": "screen-01-hope",
-          "label": "You hope the residents succeed",
-          "type": "goto",
-          "target": "screen-03",
+          "target": "screen-02",
           "style": "option"
         }
       ]
@@ -51,353 +44,349 @@
     {
       "id": "screen-02",
       "type": "choice",
-      "title": "The Residents Meeting",
-      "description": [
-        "A group of ten residents have come together. You meet together as a group to plan next steps. It has been two weeks since you encouraged the group wanting to fix the road."
+      "title": "A Broken Road, A Broken Leg",
+      "description": [],
+      "revealBlocks": [
+        {
+          "text": "You continue using the broken road. One day, you trip on a stone and break your leg. You miss work for a week and spend ₹5,000 on medical care.",
+          "delayMs": 5000
+        }
       ],
       "image": "assets/images/screens/screen-02.jpg",
-      "imageAlt": "A group of ten residents meeting to discuss plans",
-      "showMeter": true,
-      "meter": {
-        "mode": "fixed",
-        "value": 25
-      },
-      "actionLayout": "stacked",
-      "actions": [
-        {
-          "id": "screen-02-check",
-          "label": "Check with the residents group",
-          "type": "goto",
-          "target": "screen-04",
-          "style": "option"
-        },
-        {
-          "id": "screen-02-ask",
-          "label": "Ask someone else",
-          "type": "goto",
-          "target": "screen-05",
-          "style": "option"
-        },
-        {
-          "id": "screen-02-nothing",
-          "label": "Do nothing",
-          "type": "goto",
-          "target": "screen-03",
-          "style": "option"
-        }
-      ]
-    },
-    {
-      "id": "screen-03",
-      "type": "choice",
-      "title": "A Costly Accident",
-      "description": [
-        "You continue using a broken road. One day, you trip on a stone and break your leg. You miss work for one week and pay 5,000 rupees for medical care."
-      ],
-      "image": "assets/images/screens/screen-03.jpg",
-      "imageAlt": "A person tripping on a stone on a broken road and injuring their leg",
+      "imageAlt": "A resident injured after tripping on a damaged road",
       "showMeter": true,
       "meter": {
         "mode": "fixed",
         "value": 100
       },
-      "actionLayout": "stacked",
       "actions": [
         {
-          "id": "screen-03-complain",
+          "id": "screen-02-complain",
           "label": "Complain to the residents petitioning for a better road",
           "type": "goto",
+          "target": "screen-05",
+          "style": "option",
+          "setRouteContext": "injury"
+        },
+        {
+          "id": "screen-02-do-nothing",
+          "label": "Do nothing",
+          "type": "goto",
+          "target": "screen-03",
+          "style": "option"
+        },
+        {
+          "id": "screen-02-join",
+          "label": "Join the residents",
+          "type": "goto",
           "target": "screen-06",
-          "style": "option"
-        },
+          "style": "option",
+          "setRouteContext": "injury"
+        }
+      ]
+    },
+    {
+      "id": "screen-03",
+      "type": "result",
+      "title": "You Move On",
+      "description": [
+        "Your leg heals. You're more careful now. You know which patches to avoid.",
+        "The others are still at it. You wish them luck. Maybe it'll work out, maybe it won't."
+      ],
+      "image": "assets/images/screens/screen-03.jpg",
+      "imageAlt": "A resident walking carefully past potholes on a familiar route",
+      "showMeter": true,
+      "meter": {
+        "mode": "inherit"
+      },
+      "actions": [
         {
-          "id": "screen-03-online",
-          "label": "Lodge a complaint online",
+          "id": "screen-03-about",
+          "label": "Find out about this game",
           "type": "goto",
-          "target": "screen-07",
-          "style": "option"
-        },
-        {
-          "id": "screen-03-mla",
-          "label": "Talk to the MLA",
-          "type": "goto",
-          "target": "screen-08",
-          "style": "option"
-        },
-        {
-          "id": "screen-03-councillor",
-          "label": "Talk to the Councillor",
-          "type": "goto",
-          "target": "screen-09",
-          "style": "option"
+          "target": "screen-04",
+          "style": "primary"
         }
       ]
     },
     {
       "id": "screen-04",
-      "type": "choice",
-      "title": "Radio Silence",
+      "type": "result",
+      "title": "About This Game",
       "description": [
-        "You learn that the group is yet to hear back from the MLA."
+        "This simulation is designed to show how difficult it can be for citizens to fix a simple city road in their neighbourhood. Would you like to learn about the reforms Janaagraha advocates to address the core systemic issues in our cities?"
       ],
       "image": "assets/images/screens/screen-04.jpg",
-      "imageAlt": "Residents looking frustrated while waiting for a response",
+      "imageAlt": "An informational screen introducing the purpose of the simulation",
       "showMeter": true,
       "meter": {
-        "mode": "fixed",
-        "value": 30
+        "mode": "inherit"
       },
-      "actionLayout": "footer",
       "actions": [
         {
-          "id": "screen-04-councillor",
-          "label": "Option A: Tell them to talk to the Councillor instead",
+          "id": "screen-04-reforms",
+          "label": "Check out the reforms",
           "type": "goto",
-          "target": "screen-09",
+          "target": "screen-41",
           "style": "primary"
-        },
-        {
-          "id": "screen-04-nothing",
-          "label": "Option B: Do nothing",
-          "type": "goto",
-          "target": "screen-26",
-          "style": "secondary",
-          "setFailureReasonKey": "waiting"
         }
       ]
     },
     {
       "id": "screen-05",
       "type": "choice",
-      "title": "Whispers in the Colony",
+      "title": "The Residents Invite You",
       "description": [
-        "You hear something that someone else heard from someone else."
+        "You reach out to the residents' group and they invite you to join them."
       ],
       "image": "assets/images/screens/screen-05.jpg",
-      "imageAlt": "Neighbors talking and spreading rumors",
+      "imageAlt": "Residents inviting a neighbour to join their effort",
       "showMeter": true,
       "meter": {
-        "mode": "fixed",
-        "value": 30
+        "mode": "byRouteContext",
+        "defaultValue": 30,
+        "byRouteContext": {
+          "injury": 100,
+          "resident-talk": 30
+        }
       },
-      "actionLayout": "footer",
       "actions": [
         {
-          "id": "screen-05-residents",
-          "label": "Option A: Talk to the residents group",
+          "id": "screen-05-submit-and-leave",
+          "label": "Submit your complaint and leave",
           "type": "goto",
-          "target": "screen-06",
+          "target": "screen-04",
           "style": "primary"
         },
         {
-          "id": "screen-05-nothing",
-          "label": "Option B: Do nothing",
+          "id": "screen-05-join-group",
+          "label": "Join the group",
           "type": "goto",
-          "target": "screen-03",
+          "target": "screen-07",
           "style": "secondary"
         }
       ]
     },
     {
       "id": "screen-06",
-      "type": "choice",
-      "title": "Teaming Up",
+      "type": "result",
+      "title": "The Residents Fill You In",
       "description": [
-        "The group asks you to join them. The residents update you and tell you that they plan to approach the Councillor."
+        "The residents update you and explain that they plan to approach the Councillor."
       ],
       "image": "assets/images/screens/screen-06.jpg",
-      "imageAlt": "A resident officially joining the neighborhood petition group",
+      "imageAlt": "Residents briefing a new volunteer about the next step",
       "showMeter": true,
       "meter": {
-        "mode": "byPreviousScreen",
+        "mode": "byRouteContext",
         "defaultValue": 20,
-        "byPreviousScreen": {
-          "screen-03": 70
+        "byRouteContext": {
+          "injury": 70,
+          "resident-talk": 20
         }
       },
-      "actionLayout": "footer",
       "actions": [
         {
-          "id": "screen-06-join",
-          "label": "Join the residents",
+          "id": "screen-06-join-group",
+          "label": "Join the group",
           "type": "goto",
-          "target": "screen-09",
+          "target": "screen-07",
           "style": "primary"
-        },
-        {
-          "id": "screen-06-nothing",
-          "label": "Do nothing",
-          "type": "goto",
-          "target": "screen-26",
-          "style": "secondary",
-          "setFailureReasonKey": "ae-never-returns"
         }
       ]
     },
     {
       "id": "screen-07",
-      "type": "result",
-      "title": "Wrong Address",
+      "type": "choice",
+      "title": "Two Weeks Have Passed",
       "description": [
-        "You find out where the office is, but the Councillor doesn't sit there. They tell you the address that is also listed online. You go to the address and find out the Councillor doesn't sit there."
+        "It has been two weeks since you joined the group working to get the road fixed. The situation remains unchanged.",
+        "What will you do now?"
       ],
       "image": "assets/images/screens/screen-07.jpg",
-      "imageAlt": "Searching for municipal addresses on a computer",
+      "imageAlt": "Residents waiting for progress that has not come",
       "showMeter": true,
       "meter": {
-        "mode": "fixed",
-        "value": 40
+        "mode": "inherit"
       },
-      "actionLayout": "footer",
       "actions": [
         {
-          "id": "screen-07-search",
-          "label": "Continue searching",
+          "id": "screen-07-check-group",
+          "label": "Check in with the residents' group",
           "type": "goto",
-          "target": "screen-09",
-          "style": "primary"
+          "target": "screen-13",
+          "style": "option"
+        },
+        {
+          "id": "screen-07-ask-around",
+          "label": "Ask around independently",
+          "type": "goto",
+          "target": "screen-10",
+          "style": "option"
+        },
+        {
+          "id": "screen-07-do-nothing",
+          "label": "Do nothing",
+          "type": "goto",
+          "target": "screen-02",
+          "style": "option"
         }
       ]
     },
     {
       "id": "screen-08",
       "type": "choice",
-      "title": "The MLA's Dismissal",
+      "title": "You Cheered Them On",
       "description": [
-        "The MLA does not agree to meet you. He asks you to go to the Councillor. The MLA turns a deaf ear because you are a small colony. MLA puts you in touch with the Councillor. You are left with approaching the councillor!"
+        "You encouraged the residents to go ahead and hope they succeed."
+      ],
+      "revealBlocks": [
+        {
+          "text": "It has been two weeks since you encouraged the group wanting to fix the road.",
+          "delayMs": 5000
+        },
+        {
+          "text": "What will you do now?",
+          "delayMs": 0,
+          "style": "prompt"
+        }
       ],
       "image": "assets/images/screens/screen-08.jpg",
-      "imageAlt": "A politician turning a deaf ear to a small group of residents",
+      "imageAlt": "A neighbour watching others take up the cause",
       "showMeter": true,
       "meter": {
         "mode": "fixed",
-        "value": 60
+        "value": 25
       },
-      "actionLayout": "stacked",
       "actions": [
         {
-          "id": "screen-08-help",
-          "label": "Option A: Seek help from the MLA",
-          "type": "goto",
-          "target": "screen-08",
-          "style": "option"
-        },
-        {
-          "id": "screen-08-protest",
-          "label": "Option B: Protest and insist",
-          "type": "goto",
-          "target": "screen-08",
-          "style": "option"
-        },
-        {
-          "id": "screen-08-drop",
-          "label": "Option C: Drop the cause",
-          "type": "goto",
-          "target": "screen-26",
-          "style": "option",
-          "setFailureReasonKey": "dropped"
-        },
-        {
-          "id": "screen-08-councillor",
-          "label": "Go to the Councillor",
+          "id": "screen-08-check-group",
+          "label": "Check in with the residents' group",
           "type": "goto",
           "target": "screen-09",
+          "style": "option"
+        },
+        {
+          "id": "screen-08-ask-around",
+          "label": "Ask around independently",
+          "type": "goto",
+          "target": "screen-10",
+          "style": "option"
+        },
+        {
+          "id": "screen-08-do-nothing",
+          "label": "Do nothing",
+          "type": "goto",
+          "target": "screen-02",
           "style": "option"
         }
       ]
     },
     {
       "id": "screen-09",
-      "type": "result",
-      "title": "All Roads Lead to the Councillor",
+      "type": "choice",
+      "title": "Still Waiting on the MLA",
       "description": [
-        "All roads lead to the Councillor. You finally find out where to find the Councillor and how to meet them. You approach them at their office. You come back to the Councillor's office. The Councillor greets you and asks you about your concern. You express your concern. But, instead of the Councillor, her husband who is in the room begins responding. He says he will inform the AE. The Councillor nods to the suggestion."
+        "You learn that the group has approached the MLA but has yet to receive a response.",
+        "What will you do now?"
       ],
       "image": "assets/images/screens/screen-09.jpg",
-      "imageAlt": "Meeting a Councillor at her office, but her husband is speaking for her",
+      "imageAlt": "Residents waiting for a response from the MLA",
       "showMeter": true,
       "meter": {
         "mode": "fixed",
         "value": 30
       },
-      "actionLayout": "footer",
       "actions": [
         {
-          "id": "screen-09-ae",
-          "label": "Wait for the AE",
+          "id": "screen-09-councillor",
+          "label": "Suggest they approach the Councillor instead",
           "type": "goto",
-          "target": "screen-10",
-          "style": "primary"
+          "target": "screen-05",
+          "style": "primary",
+          "setRouteContext": "resident-talk"
+        },
+        {
+          "id": "screen-09-do-nothing",
+          "label": "Do nothing",
+          "type": "goto",
+          "target": "screen-02",
+          "style": "secondary"
         }
       ]
     },
     {
       "id": "screen-10",
       "type": "choice",
-      "title": "Surveying the Damage",
+      "title": "Word on the Street",
       "description": [
-        "A few days later, the AE comes to your colony to survey the issue. He takes note of the action required and leaves. It has been a few days since the AE's visit. But nothing has happened."
+        "You hear something from someone who heard it from someone else - the kind of information that may or may not be reliable."
       ],
       "image": "assets/images/screens/screen-10.jpg",
-      "imageAlt": "An Assistant Engineer making notes on a clipboard while looking at the road",
+      "imageAlt": "Neighbours exchanging uncertain information in the street",
       "showMeter": true,
       "meter": {
-        "mode": "inherit"
+        "mode": "fixed",
+        "value": 30
       },
-      "actionLayout": "footer",
       "actions": [
         {
-          "id": "screen-10-back",
-          "label": "Go back to the Councillor's office",
+          "id": "screen-10-verify",
+          "label": "Talk to the residents' group to verify",
           "type": "goto",
-          "target": "screen-11",
+          "target": "screen-09",
           "style": "primary"
         },
         {
-          "id": "screen-10-nothing",
+          "id": "screen-10-do-nothing",
           "label": "Do nothing",
           "type": "goto",
-          "target": "screen-26",
-          "style": "secondary",
-          "setFailureReasonKey": "ae-never-returns"
+          "target": "screen-02",
+          "style": "secondary"
         }
       ]
     },
     {
       "id": "screen-11",
       "type": "choice",
-      "title": "A Temporary Fix",
+      "title": "The Group Comes Together",
       "description": [
-        "The Councillor asks you to visit the Ward Office of your area. You meet the AE at the Ward Office. He tells you that the people necessary for the work are not available. He also tells you that they will finish the work in the next week. A few days later, people from the Citynagar Municipal Corporation go to the colony to patch broken parts of the road."
+        "A group of ten residents has come together. You meet to discuss next steps and decide on a plan of action."
+      ],
+      "revealBlocks": [
+        {
+          "text": "What plan of action will you recommend?",
+          "delayMs": 1500,
+          "style": "prompt"
+        }
       ],
       "image": "assets/images/screens/screen-11.jpg",
-      "imageAlt": "Municipal workers doing patchwork on the broken road",
+      "imageAlt": "Residents gathered together to discuss a strategy",
       "showMeter": true,
       "meter": {
         "mode": "fixed",
-        "value": 60
+        "value": 25
       },
-      "actionLayout": "stacked",
       "actions": [
         {
-          "id": "screen-11-rejoice",
-          "label": "Rejoice! The road is fixed.",
+          "id": "screen-11-mla",
+          "label": "Talk to the MLA",
           "type": "goto",
           "target": "screen-12",
           "style": "option"
         },
         {
-          "id": "screen-11-feel-nothing",
-          "label": "Feel nothing.",
+          "id": "screen-11-councillor",
+          "label": "Talk to the Councillor",
           "type": "goto",
-          "target": "screen-12",
+          "target": "screen-13",
           "style": "option"
         },
         {
-          "id": "screen-11-concerned",
-          "label": "Feel concerned about the work done",
+          "id": "screen-11-online",
+          "label": "Lodge a complaint online",
           "type": "goto",
-          "target": "screen-12",
+          "target": "screen-14",
           "style": "option"
         }
       ]
@@ -405,23 +394,23 @@
     {
       "id": "screen-12",
       "type": "result",
-      "title": "Ruined by the Rain",
+      "title": "Out of the MLA's Hands",
       "description": [
-        "Alas! A few days later, the patchworks get washed away by the rain. Maybe for the better! A few days later, the patchworks get washed away by the rain."
+        "The MLA hears you out but explains that road repairs in a residential colony fall under the Municipal Corporation. He's not the right person for this."
       ],
       "image": "assets/images/screens/screen-12.jpg",
-      "imageAlt": "Rain washing away the fresh patchwork on the road",
+      "imageAlt": "An MLA explaining that the matter falls under the Municipal Corporation",
       "showMeter": true,
       "meter": {
-        "mode": "inherit"
+        "mode": "fixed",
+        "value": 30
       },
-      "actionLayout": "footer",
       "actions": [
         {
-          "id": "screen-12-demand",
-          "label": "You go back to the Councillor, demanding answers for bad work",
+          "id": "screen-12-connect",
+          "label": "Seek help from the MLA to reach out to the Councillor",
           "type": "goto",
-          "target": "screen-13",
+          "target": "screen-15",
           "style": "primary"
         }
       ]
@@ -429,164 +418,137 @@
     {
       "id": "screen-13",
       "type": "choice",
-      "title": "The Blame Game",
+      "title": "Nobody Knows Where the Councillor Sits",
       "description": [
-        "The Councillor calls the AE to talk to them. The AE tells you this time that the road might take a lot of money to fix. It's not in the AE's hands, so he asks you to take it up with the Councillor."
+        "The group sets out to meet the Councillor, but nobody knows the location of their office."
       ],
       "image": "assets/images/screens/screen-13.jpg",
-      "imageAlt": "The Councillor making a phone call to the AE",
+      "imageAlt": "Residents trying to figure out where the Councillor's office is",
       "showMeter": true,
       "meter": {
-        "mode": "inherit"
+        "mode": "fixed",
+        "value": 25
       },
-      "actionLayout": "footer",
       "actions": [
         {
-          "id": "screen-13-loop",
-          "label": "Tell the AE what happened",
+          "id": "screen-13-search",
+          "label": "You search for the office address online",
           "type": "goto",
-          "target": "screen-13",
-          "style": "secondary"
+          "target": "screen-16",
+          "style": "option"
         },
         {
-          "id": "screen-13-money",
-          "label": "Demand the Councillor for money",
+          "id": "screen-13-municipal",
+          "label": "Visit the Citynagar Municipal office for help",
           "type": "goto",
-          "target": "screen-14",
-          "style": "primary"
+          "target": "screen-18",
+          "style": "option"
+        },
+        {
+          "id": "screen-13-drop",
+          "label": "Drop the cause",
+          "type": "goto",
+          "target": "screen-02",
+          "style": "option"
         }
       ]
     },
     {
       "id": "screen-14",
       "type": "choice",
-      "title": "Passing the Buck",
+      "title": "Complaint Registered, No Follow-Up",
       "description": [
-        "The Councillor tells you it's not in her hands either. She says the matter has to go to the Standing Committee and that it would take time."
+        "Your complaint is successfully registered online, but there is no acknowledgement or follow-up after submission."
       ],
       "image": "assets/images/screens/screen-14.jpg",
-      "imageAlt": "A politician explaining bureaucracy and lack of funds",
+      "imageAlt": "An online complaint form with no further response",
       "showMeter": true,
       "meter": {
-        "mode": "inherit"
+        "mode": "fixed",
+        "value": 30
       },
-      "actionLayout": "footer",
       "actions": [
         {
-          "id": "screen-14-standing-committee",
-          "label": "Demand that the matter be sent to the Standing Committee",
+          "id": "screen-14-mla",
+          "label": "Talk to the MLA",
           "type": "goto",
-          "target": "screen-15",
+          "target": "screen-12",
           "style": "primary"
         },
         {
-          "id": "screen-14-nothing",
-          "label": "Do nothing",
+          "id": "screen-14-councillor",
+          "label": "Talk to the Councillor",
           "type": "goto",
-          "target": "screen-26",
-          "style": "secondary",
-          "setFailureReasonKey": "waiting"
+          "target": "screen-13",
+          "style": "secondary"
         }
       ]
     },
     {
       "id": "screen-15",
-      "type": "choice",
-      "title": "Bureaucratic Limbo",
+      "type": "result",
+      "title": "The MLA Connects You to the Councillor",
       "description": [
-        "The Councillor tells you they will pass on the request to the Standing Committee. It has been many days since you spoke to the Councillor. You don't know if there is any progress."
+        "The MLA puts you in touch with the Councillor directly."
       ],
       "image": "assets/images/screens/screen-15.jpg",
-      "imageAlt": "A calendar with many days crossed off",
+      "imageAlt": "An MLA connecting residents to the Councillor's office",
       "showMeter": true,
       "meter": {
         "mode": "inherit"
       },
-      "actionLayout": "footer",
       "actions": [
         {
-          "id": "screen-15-follow-up",
-          "label": "Follow-up with the Councillor",
+          "id": "screen-15-approach",
+          "label": "Approach the Councillor",
           "type": "goto",
-          "target": "screen-16",
+          "target": "screen-19",
           "style": "primary"
-        },
-        {
-          "id": "screen-15-nothing",
-          "label": "Do nothing",
-          "type": "goto",
-          "target": "screen-26",
-          "style": "secondary",
-          "setFailureReasonKey": "waiting"
         }
       ]
     },
     {
       "id": "screen-16",
-      "type": "choice",
-      "title": "Out of Funds",
+      "type": "result",
+      "title": "The Office Address Is Wrong",
       "description": [
-        "The Councillor tells you that they haven't had a chance to bring it up. They promised to do it that day. After a few more follow-ups over the next few weeks, you find out that the Standing Committee rejects the demand because of scarce funds. They put the request away until later - unsure when."
+        "You find an address online, but when you visit, the Councillor doesn't sit there. Perhaps the residents' group knows more about the Councillor's whereabouts."
       ],
       "image": "assets/images/screens/screen-16.jpg",
-      "imageAlt": "A document stamped REJECTED due to scarce funds",
+      "imageAlt": "A resident arriving at the wrong address for the Councillor",
       "showMeter": true,
       "meter": {
         "mode": "fixed",
-        "value": 70
+        "value": 40
       },
-      "actionLayout": "stacked",
       "actions": [
         {
-          "id": "screen-16-push-harder",
-          "label": "Ask the Councillor to push harder",
+          "id": "screen-16-group",
+          "label": "Meet the residents' group for more information",
           "type": "goto",
           "target": "screen-17",
-          "style": "option"
-        },
-        {
-          "id": "screen-16-standing-members",
-          "label": "Approach the Standing Committee members",
-          "type": "goto",
-          "target": "screen-18",
-          "style": "option"
-        },
-        {
-          "id": "screen-16-mayor",
-          "label": "Approach the Mayor or Commissioner",
-          "type": "goto",
-          "target": "screen-18",
-          "style": "option"
-        },
-        {
-          "id": "screen-16-nothing",
-          "label": "Do nothing",
-          "type": "goto",
-          "target": "screen-26",
-          "style": "option",
-          "setFailureReasonKey": "waiting"
+          "style": "primary"
         }
       ]
     },
     {
       "id": "screen-17",
       "type": "result",
-      "title": "Bad Timing",
+      "title": "The Group Has a Suggestion - Ask at the Municipal Office",
       "description": [
-        "The Councillor says they will try later when the time is right."
+        "The residents' group doesn't know the Councillor's exact whereabouts either, but someone suggests trying the municipal office."
       ],
       "image": "assets/images/screens/screen-17.jpg",
-      "imageAlt": "Councillor gesturing to wait",
+      "imageAlt": "Residents suggesting the municipal office as the next lead",
       "showMeter": true,
       "meter": {
         "mode": "fixed",
-        "value": 80
+        "value": 40
       },
-      "actionLayout": "footer",
       "actions": [
         {
-          "id": "screen-17-standing-members",
-          "label": "Approach other Standing Committee members",
+          "id": "screen-17-visit-office",
+          "label": "Visit the municipal office",
           "type": "goto",
           "target": "screen-18",
           "style": "primary"
@@ -595,215 +557,162 @@
     },
     {
       "id": "screen-18",
-      "type": "choice",
-      "title": "The Bureaucratic Wall",
+      "type": "result",
+      "title": "The Municipal Office Has the Details",
       "description": [
-        "The member listens to you, but doesn't give you a satisfactory response. The members give you an unsatisfactory response. You wait."
+        "Unlike the internet, the municipal office staff have the right details. You leave with the Councillor's correct address in hand."
       ],
       "image": "assets/images/screens/screen-18.jpg",
-      "imageAlt": "A closed-door meeting with unhelpful committee members",
+      "imageAlt": "Municipal office staff sharing the correct Councillor details",
       "showMeter": true,
       "meter": {
         "mode": "fixed",
-        "value": 80
+        "value": 40
       },
-      "actionLayout": "stacked",
       "actions": [
         {
-          "id": "screen-18-go-away",
-          "label": "Agree and go away",
-          "type": "goto",
-          "target": "screen-26",
-          "style": "option",
-          "setFailureReasonKey": "dropped"
-        },
-        {
-          "id": "screen-18-approach-other",
-          "label": "Approach other Standing Committee members",
+          "id": "screen-18-meet-councillor",
+          "label": "Time to meet the Councillor",
           "type": "goto",
           "target": "screen-19",
-          "style": "option"
-        },
-        {
-          "id": "screen-18-protest",
-          "label": "Protest before the Municipal Corporation office",
-          "type": "goto",
-          "target": "screen-19",
-          "style": "option"
+          "style": "primary"
         }
       ]
     },
     {
       "id": "screen-19",
-      "type": "result",
-      "title": "Priority Approval",
+      "type": "choice",
+      "title": "You Finally Reach the Councillor",
       "description": [
-        "They listen to you and agree to speak to the Standing Committee. The Standing Committee members agree to take up the matter on priority. REJOICE! You made all the right moves. The Standing Committee approves some funds for the project. Rejoiced, you go home believing that your road would finally get fixed. You will soon be able to walk on the road without any issues."
+        "All roads lead to the Councillor. You finally arrive at their office. But they are unavailable today. They promise to meet you on Sunday afternoon.",
+        "What will you do?"
       ],
       "image": "assets/images/screens/screen-19.jpg",
-      "imageAlt": "Residents celebrating outside the municipal office",
+      "imageAlt": "Residents finally reaching the Councillor's office",
       "showMeter": true,
       "meter": {
-        "mode": "byLastActionId",
-        "defaultValue": 50,
-        "byLastActionId": {
-          "screen-18-protest": 40
-        }
+        "mode": "inherit"
       },
-      "actionLayout": "footer",
       "actions": [
         {
-          "id": "screen-19-wait",
-          "label": "Wait for results",
+          "id": "screen-19-sunday",
+          "label": "Come back on Sunday",
           "type": "goto",
           "target": "screen-20",
           "style": "primary"
+        },
+        {
+          "id": "screen-19-drop",
+          "label": "Drop the effort",
+          "type": "goto",
+          "target": "screen-02",
+          "style": "secondary"
         }
       ]
     },
     {
       "id": "screen-20",
-      "type": "choice",
-      "title": "No Contractors Responding",
+      "type": "result",
+      "title": "The Councillor Hears You Out",
       "description": [
-        "But unfortunately, many weeks later, things remain the same…You go back to the Councillor and the AE. You learn that the project needs a Contractor. But none of the Contractors were responding to the tender with the given funds."
+        "You return on Sunday. The Councillor greets you and listens to your concern. She says she will inform the Assistant Engineer (AE). Will you wait for the AE to visit your colony?"
       ],
       "image": "assets/images/screens/screen-20.jpg",
-      "imageAlt": "An empty road with no construction happening",
+      "imageAlt": "The Councillor listening to the residents' concern",
       "showMeter": true,
       "meter": {
         "mode": "inherit"
       },
-      "actionLayout": "stacked",
       "actions": [
         {
-          "id": "screen-20-push-harder",
-          "label": "Ask the Councillor to push harder",
+          "id": "screen-20-wait",
+          "label": "Wait a few days for the AE's visit",
           "type": "goto",
           "target": "screen-21",
-          "style": "option"
-        },
-        {
-          "id": "screen-20-standing-members",
-          "label": "Approach the Standing Committee members",
-          "type": "goto",
-          "target": "screen-21",
-          "style": "option"
-        },
-        {
-          "id": "screen-20-mayor",
-          "label": "Approach the Mayor or Commissioner",
-          "type": "goto",
-          "target": "screen-21",
-          "style": "option"
-        },
-        {
-          "id": "screen-20-mla",
-          "label": "Approach the MLA",
-          "type": "goto",
-          "target": "screen-21",
-          "style": "option"
-        },
-        {
-          "id": "screen-20-diy",
-          "label": "Offer to do it on your own",
-          "type": "goto",
-          "target": "screen-22",
-          "style": "option"
-        },
-        {
-          "id": "screen-20-nothing",
-          "label": "Do nothing",
-          "type": "goto",
-          "target": "screen-26",
-          "style": "option",
-          "setFailureReasonKey": "waiting"
+          "style": "primary"
         }
       ]
     },
     {
       "id": "screen-21",
-      "type": "result",
-      "title": "Success at Last",
+      "type": "choice",
+      "title": "The AE Visits and Then It Goes Quiet",
       "description": [
-        "The Municiapl Corporation releases some more funds to make the tender more attractive. (Or: The MLA listens to you this time and gets necessary funds sanctioned). A contractor fixed the road in a couple of weeks."
+        "A few days later, the Assistant Engineer (AE) visits your colony to assess the damage. He takes note of what needs to be done and leaves. Days pass, but nothing happens."
+      ],
+      "revealBlocks": [
+        {
+          "text": "What will you do now?",
+          "delayMs": 1500,
+          "style": "prompt"
+        }
       ],
       "image": "assets/images/screens/screen-21.jpg",
-      "imageAlt": "A newly paved, beautiful road in the colony",
+      "imageAlt": "An Assistant Engineer inspecting the road and leaving",
       "showMeter": true,
       "meter": {
         "mode": "inherit"
       },
-      "actionLayout": "footer",
       "actions": [
         {
-          "id": "screen-21-continue",
-          "label": "Continue",
+          "id": "screen-21-back",
+          "label": "Go back to the Councillor's office",
+          "type": "goto",
+          "target": "screen-22",
+          "style": "primary"
+        },
+        {
+          "id": "screen-21-nothing",
+          "label": "Do nothing",
           "type": "goto",
           "target": "screen-23",
-          "style": "primary"
+          "style": "secondary"
         }
       ]
     },
     {
       "id": "screen-22",
       "type": "result",
-      "title": "You Can't Do It Alone",
+      "title": "Try the Ward Office",
       "description": [
-        "You try your best, but you simply couldn't do the job."
+        "The Councillor asks you to visit the Ward Office for your area and follow up there."
       ],
       "image": "assets/images/screens/screen-22.jpg",
-      "imageAlt": "A resident trying and failing to pave a road with basic tools",
+      "imageAlt": "Residents redirected to the Ward Office",
       "showMeter": true,
       "meter": {
-        "mode": "inherit"
+        "mode": "fixed",
+        "value": 60
       },
-      "actionLayout": "footer",
       "actions": [
         {
-          "id": "screen-22-try-again",
-          "label": "Try another way",
+          "id": "screen-22-ward-office",
+          "label": "Visit the Ward Office",
           "type": "goto",
-          "target": "screen-20",
+          "target": "screen-24",
           "style": "primary"
         }
       ]
     },
     {
       "id": "screen-23",
-      "type": "choice",
-      "title": "Dug Up Again!",
+      "type": "result",
+      "title": "The Group Loses Hope",
       "description": [
-        "You were amazing! Your persistence got you to successfully fix your road. Everyone in your colony is now living a more pleasant life. But, a few months later, the sewage department digs up the road to lay pipelines for an upcoming real estate project. They don't tell you if they will fix the road again."
+        "The AE never returns. No one knows what happened. The residents' group has lost motivation and quietly disbanded."
       ],
       "image": "assets/images/screens/screen-23.jpg",
-      "imageAlt": "The sewage department digging up the newly fixed road",
+      "imageAlt": "A disheartened residents' group losing momentum",
       "showMeter": true,
       "meter": {
         "mode": "inherit"
       },
-      "actionLayout": "footer",
       "actions": [
         {
-          "id": "screen-23-restart",
-          "label": "Restart and take a different path",
-          "type": "restart",
-          "target": "screen-01",
-          "style": "secondary"
-        },
-        {
-          "id": "screen-23-give-up",
-          "label": "Give up",
+          "id": "screen-23-let-it-go",
+          "label": "Let it go",
           "type": "goto",
-          "target": "screen-26",
-          "style": "secondary",
-          "setFailureReasonKey": "dropped"
-        },
-        {
-          "id": "screen-23-reform",
-          "label": "Reform",
-          "type": "goto",
-          "target": "screen-24",
+          "target": "screen-48",
           "style": "primary"
         }
       ]
@@ -811,158 +720,806 @@
     {
       "id": "screen-24",
       "type": "choice",
-      "title": "Choose Your Reform",
+      "title": "Progress at the Ward Office",
       "description": [
-        "Thank you for stepping up and trying to reform the system. What reform do you think is more important here?"
+        "You meet the AE at the Ward Office. He explains that the required workers are currently unavailable, but assures you the work will be completed within the next week. A few days later, a team from the Citynagar Municipal Corporation arrives at the colony to patch sections of the broken road."
+      ],
+      "revealBlocks": [
+        {
+          "text": "What will you do now?",
+          "delayMs": 1500,
+          "style": "prompt"
+        }
       ],
       "image": "assets/images/screens/screen-24.jpg",
-      "imageAlt": "Concept art representing systemic government reform",
+      "imageAlt": "Municipal workers patching sections of the broken road",
       "showMeter": true,
       "meter": {
         "mode": "inherit"
       },
-      "actionLayout": "stacked",
       "actions": [
         {
-          "id": "screen-24-municipal-funds",
-          "label": "Give the Municipal Corporation more funds for maintenance",
+          "id": "screen-24-concern",
+          "label": "Express concern about the quality of patchwork",
           "type": "goto",
           "target": "screen-25",
-          "style": "option",
-          "setSelectedReformKey": "municipal-funds"
+          "style": "option"
         },
         {
-          "id": "screen-24-coucillor-power",
-          "label": "Give the Coucillor more power and accountability",
-          "type": "goto",
-          "target": "screen-25",
-          "style": "option",
-          "setSelectedReformKey": "coucillor-power"
-        },
-        {
-          "id": "screen-24-skilled-personnel",
-          "label": "Hire more skilled personnel in the ULG",
-          "type": "goto",
-          "target": "screen-25",
-          "style": "option",
-          "setSelectedReformKey": "skilled-personnel"
-        },
-        {
-          "id": "screen-24-link-the-ulg",
-          "label": "Link the ULG, sewage department, and all other departments",
-          "type": "goto",
-          "target": "screen-25",
-          "style": "option",
-          "setSelectedReformKey": "link-the-ulg"
-        },
-        {
-          "id": "screen-24-plan-better",
-          "label": "Plan better for good roads and services to avoid redigging roads",
-          "type": "goto",
-          "target": "screen-25",
-          "style": "option",
-          "setSelectedReformKey": "plan-better"
-        },
-        {
-          "id": "screen-24-no",
-          "label": "No",
+          "id": "screen-24-rejoice",
+          "label": "Rejoice - the road is fixed!",
           "type": "goto",
           "target": "screen-26",
-          "style": "option",
-          "setFailureReasonKey": "dropped"
+          "style": "option"
+        },
+        {
+          "id": "screen-24-indifferent",
+          "label": "Feel indifferent",
+          "type": "goto",
+          "target": "screen-26",
+          "style": "option"
         }
       ]
     },
     {
       "id": "screen-25",
       "type": "result",
-      "title": "A Better Citynagar",
-      "description": [],
-      "dynamicDescription": {
-        "stateKey": "selectedReformKey",
-        "variants": {
-          "plan-better": [
-            "The city how has better designs for roads. Once made with this design, they won't have to be dug up for work. Utilities work can happen without digging up the road. However, this design requires more funding. You may have to spend a lot more time waiting for the necessary amount to get sanctioned."
-          ],
-          "skilled-personnel": [
-            "The AE told you upfront that patchwork will not help. Once you were able to ensure enough funds, the ULG could itself fix the road without waiting for a contractor. However, the sewage department still came and dug up the road for the new project"
-          ],
-          "municipal-funds": [
-            "The Corporation now has more funds to fix your road. Your road maintenance work got sanctioned sooner. However, the sewage department still came and dug up the road for the new project"
-          ],
-          "coucillor-power": [
-            "The Councillor heard you and sanctioned the road project, without you having to shuttle between the Standing Committee and the MLA's office"
-          ],
-          "link-the-ulg": [
-            "You had to go through the entire process of convincing the Standing Committee for funds, but the road was made after the sewage pipes were laid. You had to wait for your road, but now you have a great road that likely won't be dug up anytime soon - until the next utilities work comes up."
-          ]
-        },
-        "fallback": [
-          "Thank you for stepping up and trying to reform the system."
-        ]
-      },
+      "title": "The Patchwork Was Right to Worry About",
+      "description": [
+        "Your concern turns out to be well-founded. A few days later, the patchwork washes away in the rain.",
+        "You return to the Councillor to demand an explanation for the poor workmanship. The Councillor summons the AE."
+      ],
       "image": "assets/images/screens/screen-25.jpg",
-      "imageAlt": "A futuristic or highly organized city infrastructure",
+      "imageAlt": "Rain exposing failed patchwork repairs on the road",
       "showMeter": true,
       "meter": {
         "mode": "inherit"
       },
-      "actionLayout": "footer",
       "actions": [
         {
-          "id": "screen-25-pick-another",
-          "label": "Would you like to pick another reform?",
+          "id": "screen-25-tell-ae",
+          "label": "Tell the AE what happened",
           "type": "goto",
-          "target": "screen-24",
-          "style": "secondary",
-          "maxReformLoops": 3
-        },
-        {
-          "id": "screen-25-no",
-          "label": "No",
-          "type": "goto",
-          "target": "screen-26",
-          "style": "primary",
-          "setFailureReasonKey": "dropped"
+          "target": "screen-27",
+          "style": "primary"
         }
       ]
     },
     {
       "id": "screen-26",
-      "type": "ending",
-      "title": "The Matter is Dropped",
-      "description": [],
-      "dynamicDescription": {
-        "stateKey": "failureReasonKey",
-        "variants": {
-          "waiting": [
-            "You wait, hoping that nobody else suffers your fate. You don't know for sure if the road will ever get better."
-          ],
-          "ae-never-returns": [
-            "The AE never returns. You don't know what happened. The group has lost motivation and no longer cares."
-          ],
-          "dropped": [
-            "End. Everybody drops the matter."
-          ]
-        },
-        "fallback": [
-          "End. Everybody drops the matter."
-        ]
-      },
+      "type": "result",
+      "title": "The Rain Washes It All Away",
+      "description": [
+        "Unfortunately, a few days later, the patchwork is washed away by the rain.",
+        "You return to the Councillor to demand an explanation for the poor workmanship. The Councillor summons the AE."
+      ],
       "image": "assets/images/screens/screen-26.jpg",
-      "imageAlt": "A bleak, broken road with apathetic citizens",
+      "imageAlt": "Patchwork road repairs washed away after rainfall",
+      "showMeter": true,
+      "meter": {
+        "mode": "inherit"
+      },
+      "actions": [
+        {
+          "id": "screen-26-tell-ae",
+          "label": "Tell the AE what happened",
+          "type": "goto",
+          "target": "screen-27",
+          "style": "primary"
+        }
+      ]
+    },
+    {
+      "id": "screen-27",
+      "type": "result",
+      "title": "The Problem Is Bigger Than Patchwork",
+      "description": [
+        "The AE explains that a proper fix will require significant funding, far more than what is available. He says the matter is beyond his authority and asks you to take it up with the Councillor.",
+        "What will you do now?"
+      ],
+      "image": "assets/images/screens/screen-27.jpg",
+      "imageAlt": "The Assistant Engineer explaining the need for larger funding",
+      "showMeter": true,
+      "meter": {
+        "mode": "inherit"
+      },
+      "actions": [
+        {
+          "id": "screen-27-demand-funds",
+          "label": "Demand that the Councillor secure the necessary funds",
+          "type": "goto",
+          "target": "screen-28",
+          "style": "primary"
+        }
+      ]
+    },
+    {
+      "id": "screen-28",
+      "type": "choice",
+      "title": "The Councillor Has No Funds Either",
+      "description": [
+        "The Councillor says the decision is not hers to make. The matter must go before the Standing Committee, and that will take time.",
+        "What will you do now?"
+      ],
+      "image": "assets/images/screens/screen-28.jpg",
+      "imageAlt": "The Councillor explaining that the matter must go to the Standing Committee",
+      "showMeter": true,
+      "meter": {
+        "mode": "inherit"
+      },
+      "actions": [
+        {
+          "id": "screen-28-standing-committee",
+          "label": "Demand that the matter be sent to the Standing Committee",
+          "type": "goto",
+          "target": "screen-29",
+          "style": "primary"
+        },
+        {
+          "id": "screen-28-drop",
+          "label": "Do nothing - everyone drops the matter",
+          "type": "goto",
+          "target": "screen-49",
+          "style": "secondary"
+        }
+      ]
+    },
+    {
+      "id": "screen-29",
+      "type": "choice",
+      "title": "Referred to the Standing Committee",
+      "description": [
+        "The Councillor agrees to forward your request to the Standing Committee."
+      ],
+      "revealBlocks": [
+        {
+          "text": "Many days pass. You have no idea if there has been any progress.",
+          "delayMs": 1500
+        },
+        {
+          "text": "What will you do now?",
+          "delayMs": 1500,
+          "style": "prompt"
+        }
+      ],
+      "image": "assets/images/screens/screen-29.jpg",
+      "imageAlt": "Time passing while a request sits with the Standing Committee",
+      "showMeter": true,
+      "meter": {
+        "mode": "inherit"
+      },
+      "actions": [
+        {
+          "id": "screen-29-follow-up",
+          "label": "Follow up with the Councillor",
+          "type": "goto",
+          "target": "screen-30",
+          "style": "primary"
+        },
+        {
+          "id": "screen-29-drop",
+          "label": "Do nothing - everyone drops the matter",
+          "type": "goto",
+          "target": "screen-49",
+          "style": "secondary"
+        }
+      ]
+    },
+    {
+      "id": "screen-30",
+      "type": "choice",
+      "title": "The Standing Committee Rejects the Request",
+      "description": [
+        "The Councillor admits she hasn't had a chance to raise the matter yet, but promises to do so that day.",
+        "After several follow-ups over the next few weeks, you learn that the Standing Committee has rejected the request citing a shortage of funds. The proposal has been deferred indefinitely.",
+        "What will you do now?"
+      ],
+      "image": "assets/images/screens/screen-30.jpg",
+      "imageAlt": "A funding request rejected by the Standing Committee",
       "showMeter": true,
       "meter": {
         "mode": "fixed",
-        "value": 100
+        "value": 70
       },
-      "actionLayout": "footer",
       "actions": [
         {
-          "id": "screen-26-restart",
-          "label": "Restart Game",
+          "id": "screen-30-mayor",
+          "label": "Approach the Mayor or Municipal Commissioner",
+          "type": "goto",
+          "target": "screen-31",
+          "style": "secondary"
+        },
+        {
+          "id": "screen-30-councillor",
+          "label": "Ask the Councillor to push harder",
+          "type": "goto",
+          "target": "screen-32",
+          "style": "secondary"
+        },
+        {
+          "id": "screen-30-standing-members",
+          "label": "Approach Standing Committee members directly",
+          "type": "goto",
+          "target": "screen-33",
+          "style": "secondary"
+        },
+        {
+          "id": "screen-30-drop",
+          "label": "Do nothing - everyone drops the matter",
+          "type": "goto",
+          "target": "screen-49",
+          "style": "secondary"
+        }
+      ]
+    },
+    {
+      "id": "screen-31",
+      "type": "result",
+      "title": "The Mayor Agrees to Help",
+      "description": [
+        "The Mayor and Commissioner listen to your case and agree to speak to the Standing Committee on your behalf."
+      ],
+      "image": "assets/images/screens/screen-31.jpg",
+      "imageAlt": "The Mayor and Commissioner agreeing to help the residents",
+      "showMeter": true,
+      "meter": {
+        "mode": "fixed",
+        "value": 50
+      },
+      "actions": [
+        {
+          "id": "screen-31-results",
+          "label": "Wait for results",
+          "type": "goto",
+          "target": "screen-35",
+          "style": "primary"
+        }
+      ]
+    },
+    {
+      "id": "screen-32",
+      "type": "result",
+      "title": "The Councillor Asks You to Wait",
+      "description": [
+        "The Councillor says she will try to raise the matter again when the time is right."
+      ],
+      "image": "assets/images/screens/screen-32.jpg",
+      "imageAlt": "The Councillor asking residents to wait longer",
+      "showMeter": true,
+      "meter": {
+        "mode": "fixed",
+        "value": 80
+      },
+      "actions": [
+        {
+          "id": "screen-32-leave",
+          "label": "Agree and leave",
+          "type": "goto",
+          "target": "screen-49",
+          "style": "primary"
+        }
+      ]
+    },
+    {
+      "id": "screen-33",
+      "type": "choice",
+      "title": "A Standing Committee Member Offers No Answers",
+      "description": [
+        "You approach a Standing Committee member. They listen, but give you no satisfactory response."
+      ],
+      "image": "assets/images/screens/screen-33.jpg",
+      "imageAlt": "A Standing Committee member listening without offering help",
+      "showMeter": true,
+      "meter": {
+        "mode": "fixed",
+        "value": 80
+      },
+      "actions": [
+        {
+          "id": "screen-33-other-members",
+          "label": "Approach other Standing Committee members",
+          "type": "goto",
+          "target": "screen-34",
+          "style": "primary"
+        },
+        {
+          "id": "screen-33-protest",
+          "label": "Protest in front of the Municipal Corporation office",
+          "type": "goto",
+          "target": "screen-35",
+          "style": "secondary"
+        }
+      ]
+    },
+    {
+      "id": "screen-34",
+      "type": "result",
+      "title": "Other Members Are No Different",
+      "description": [
+        "The other Standing Committee members also give you unsatisfactory responses. You have reached a dead end through this channel."
+      ],
+      "image": "assets/images/screens/screen-34.jpg",
+      "imageAlt": "More committee members offering the same unhelpful response",
+      "showMeter": true,
+      "meter": {
+        "mode": "fixed",
+        "value": 80
+      },
+      "actions": [
+        {
+          "id": "screen-34-leave",
+          "label": "Agree and leave",
+          "type": "goto",
+          "target": "screen-49",
+          "style": "primary"
+        }
+      ]
+    },
+    {
+      "id": "screen-35",
+      "type": "result",
+      "title": "The Standing Committee Approves Funds",
+      "description": [
+        "Your efforts pay off. The Standing Committee agrees to treat this as a priority."
+      ],
+      "revealBlocks": [
+        {
+          "text": "REJOICE! You made all the right moves. The Standing Committee approves funds for the project. You head home hopeful that your road will finally be fixed - and that you will soon be able to walk it without fear.",
+          "delayMs": 1500
+        }
+      ],
+      "image": "assets/images/screens/screen-35.jpg",
+      "imageAlt": "Residents celebrating after funds are approved",
+      "showMeter": true,
+      "meter": {
+        "mode": "fixed",
+        "value": 40
+      },
+      "actions": [
+        {
+          "id": "screen-35-later",
+          "label": "A few weeks later...",
+          "type": "goto",
+          "target": "screen-36",
+          "style": "primary"
+        }
+      ]
+    },
+    {
+      "id": "screen-36",
+      "type": "choice",
+      "title": "No Contractor Will Take the Job",
+      "description": [
+        "Many weeks later, the situation is unchanged. You follow up with the Councillor and the AE, who inform you that a contractor is needed to carry out the work - but none have responded to the tender. The allocated funds are apparently not enough to attract any bids.",
+        "What will you do now?"
+      ],
+      "image": "assets/images/screens/screen-36.jpg",
+      "imageAlt": "A stalled road project with no contractor in sight",
+      "showMeter": true,
+      "meter": {
+        "mode": "inherit"
+      },
+      "actions": [
+        {
+          "id": "screen-36-organise",
+          "label": "Offer to organise the work yourself",
+          "type": "goto",
+          "target": "screen-38",
+          "style": "secondary"
+        },
+        {
+          "id": "screen-36-mla",
+          "label": "Approach the MLA for additional support",
+          "type": "goto",
+          "target": "screen-39",
+          "style": "secondary"
+        },
+        {
+          "id": "screen-36-mayor",
+          "label": "Approach the Mayor or Municipal Commissioner",
+          "type": "goto",
+          "target": "screen-37",
+          "style": "secondary"
+        },
+        {
+          "id": "screen-36-standing-members",
+          "label": "Approach the Standing Committee members again",
+          "type": "goto",
+          "target": "screen-37",
+          "style": "secondary"
+        }
+      ]
+    },
+    {
+      "id": "screen-37",
+      "type": "result",
+      "title": "More Funds, A Willing Contractor",
+      "description": [
+        "The Municipal Corporation agrees to release additional funds, making the tender more attractive. A contractor is found and the road is fixed within a couple of weeks."
+      ],
+      "image": "assets/images/screens/screen-37.jpg",
+      "imageAlt": "Road repair work finally moving ahead with a contractor",
+      "showMeter": true,
+      "meter": {
+        "mode": "inherit"
+      },
+      "actions": [
+        {
+          "id": "screen-37-continue",
+          "label": "Continue",
+          "type": "goto",
+          "target": "screen-40",
+          "style": "primary"
+        }
+      ]
+    },
+    {
+      "id": "screen-38",
+      "type": "result",
+      "title": "You Can't Do It Yourself",
+      "description": [
+        "You give it your best effort, but the scale and complexity of the work is beyond what you can manage."
+      ],
+      "image": "assets/images/screens/screen-38.jpg",
+      "imageAlt": "A resident realising the road repair is too complex to manage alone",
+      "showMeter": true,
+      "meter": {
+        "mode": "inherit"
+      },
+      "actions": [
+        {
+          "id": "screen-38-try-commissioner",
+          "label": "Try meeting the Commissioner or the Standing Committee",
+          "type": "goto",
+          "target": "screen-37",
+          "style": "primary"
+        }
+      ]
+    },
+    {
+      "id": "screen-39",
+      "type": "result",
+      "title": "The MLA Comes Through",
+      "description": [
+        "This time, the MLA listens. He arranges for the necessary funds to be sanctioned."
+      ],
+      "image": "assets/images/screens/screen-39.jpg",
+      "imageAlt": "The MLA approving additional support for the road",
+      "showMeter": true,
+      "meter": {
+        "mode": "inherit"
+      },
+      "actions": [
+        {
+          "id": "screen-39-fix-road",
+          "label": "Use the sanctioned funds to fix the road",
+          "type": "goto",
+          "target": "screen-40",
+          "style": "primary"
+        }
+      ]
+    },
+    {
+      "id": "screen-40",
+      "type": "choice",
+      "title": "The Road Is Fixed - But for How Long?",
+      "description": [
+        "You did it. Your persistence paid off, and the road is finally fixed. Everyone in the colony is living a more comfortable life."
+      ],
+      "revealBlocks": [
+        {
+          "text": "But a few months later, the sewage department digs up the road to lay pipes for an upcoming real-estate project. Nobody tells you whether it will be restored. What will you do now?",
+          "delayMs": 1500
+        }
+      ],
+      "image": "assets/images/screens/screen-40.jpg",
+      "imageAlt": "A newly repaired road being dug up again for sewage work",
+      "showMeter": true,
+      "meter": {
+        "mode": "inherit"
+      },
+      "actions": [
+        {
+          "id": "screen-40-restart",
+          "label": "Start again and try a different path",
           "type": "restart",
           "target": "screen-01",
+          "style": "option"
+        },
+        {
+          "id": "screen-40-give-up",
+          "label": "Give up",
+          "type": "goto",
+          "target": "screen-02",
+          "style": "option"
+        },
+        {
+          "id": "screen-40-reform",
+          "label": "Push for systemic reform",
+          "type": "goto",
+          "target": "screen-41",
+          "style": "option"
+        }
+      ]
+    },
+    {
+      "id": "screen-41",
+      "type": "choice",
+      "title": "Choosing a Reform",
+      "description": [
+        "Thank you for stepping up. What kind of systemic reform do you think would make the most difference?"
+      ],
+      "image": "assets/images/screens/screen-41.jpg",
+      "imageAlt": "A prompt inviting the player to choose a systemic reform",
+      "showMeter": true,
+      "meter": {
+        "mode": "inherit"
+      },
+      "actions": [
+        {
+          "id": "screen-41-plan-better",
+          "label": "Plan better for roads and utilities to avoid repeated digging",
+          "type": "goto",
+          "target": "screen-42",
+          "style": "option"
+        },
+        {
+          "id": "screen-41-skilled-personnel",
+          "label": "Hire more skilled personnel in the ULB",
+          "type": "goto",
+          "target": "screen-43",
+          "style": "option"
+        },
+        {
+          "id": "screen-41-more-funds",
+          "label": "Give the Municipal Corporation more funds for maintenance",
+          "type": "goto",
+          "target": "screen-44",
+          "style": "option"
+        },
+        {
+          "id": "screen-41-councillor-power",
+          "label": "Give the Councillors more power and accountability",
+          "type": "goto",
+          "target": "screen-45",
+          "style": "option"
+        },
+        {
+          "id": "screen-41-coordination",
+          "label": "Better coordination between the ULB, sewage department, and other agencies",
+          "type": "goto",
+          "target": "screen-46",
+          "style": "option"
+        }
+      ]
+    },
+    {
+      "id": "screen-42",
+      "type": "choice",
+      "title": "Reform: Better Infrastructure Planning",
+      "description": [
+        "The city adopts improved road designs that accommodate utility work without requiring the road to be dug up each time. Once built to this standard, the road would not need repeated disruption.",
+        "However, this approach requires significantly more funding. Securing the necessary budget approval will take additional time and effort."
+      ],
+      "image": "assets/images/screens/screen-42.jpg",
+      "imageAlt": "A better planned road and utility layout for the city",
+      "showMeter": true,
+      "meter": {
+        "mode": "inherit"
+      },
+      "actions": [
+        {
+          "id": "screen-42-another",
+          "label": "Choose another reform",
+          "type": "goto",
+          "target": "screen-41",
+          "style": "primary"
+        },
+        {
+          "id": "screen-42-end",
+          "label": "End",
+          "type": "goto",
+          "target": "screen-47",
+          "style": "secondary"
+        }
+      ]
+    },
+    {
+      "id": "screen-43",
+      "type": "choice",
+      "title": "Reform: Skilled Staff in the ULB",
+      "description": [
+        "With skilled staff in place, the AE is able to tell you upfront that patchwork won't last - and the ULB can carry out proper road repairs without relying on external contractors once sufficient funds are available.",
+        "However, the sewage department still digs up the road for the new project, pointing to a deeper coordination problem that this reform alone cannot solve."
+      ],
+      "image": "assets/images/screens/screen-43.jpg",
+      "imageAlt": "Skilled urban local body staff planning road repair work",
+      "showMeter": true,
+      "meter": {
+        "mode": "inherit"
+      },
+      "actions": [
+        {
+          "id": "screen-43-another",
+          "label": "Choose another reform",
+          "type": "goto",
+          "target": "screen-41",
+          "style": "primary"
+        },
+        {
+          "id": "screen-43-end",
+          "label": "End",
+          "type": "goto",
+          "target": "screen-47",
+          "style": "secondary"
+        }
+      ]
+    },
+    {
+      "id": "screen-44",
+      "type": "choice",
+      "title": "Reform: More Funds for the Municipal Corporation",
+      "description": [
+        "With greater financial resources, the Corporation is able to sanction your road repair much sooner.",
+        "However, the sewage department still digs up the road for the new project - pointing to a gap that funding alone cannot bridge."
+      ],
+      "image": "assets/images/screens/screen-44.jpg",
+      "imageAlt": "Municipal funding enabling earlier road repair approvals",
+      "showMeter": true,
+      "meter": {
+        "mode": "inherit"
+      },
+      "actions": [
+        {
+          "id": "screen-44-another",
+          "label": "Choose another reform",
+          "type": "goto",
+          "target": "screen-41",
+          "style": "primary"
+        },
+        {
+          "id": "screen-44-end",
+          "label": "End",
+          "type": "goto",
+          "target": "screen-47",
+          "style": "secondary"
+        }
+      ]
+    },
+    {
+      "id": "screen-45",
+      "type": "choice",
+      "title": "Reform: Empowering Councillors",
+      "description": [
+        "When elected representatives are given stronger roles in local decision-making, everyday issues like road repairs could move forward more smoothly with fewer procedural hurdles."
+      ],
+      "image": "assets/images/screens/screen-45.jpg",
+      "imageAlt": "Empowered local elected representatives helping residents",
+      "showMeter": true,
+      "meter": {
+        "mode": "inherit"
+      },
+      "actions": [
+        {
+          "id": "screen-45-another",
+          "label": "Choose another reform",
+          "type": "goto",
+          "target": "screen-41",
+          "style": "primary"
+        },
+        {
+          "id": "screen-45-end",
+          "label": "End",
+          "type": "goto",
+          "target": "screen-47",
+          "style": "secondary"
+        }
+      ]
+    },
+    {
+      "id": "screen-46",
+      "type": "choice",
+      "title": "Reform: Better Inter-Departmental Coordination",
+      "description": [
+        "You still have to go through the full process of securing Standing Committee approval, but this time the road is only built after the sewage pipes are already in place. You wait longer, but the result is a well-built road that is unlikely to be dug up again anytime soon - at least until the next round of utilities work."
+      ],
+      "image": "assets/images/screens/screen-46.jpg",
+      "imageAlt": "Coordinated city departments sequencing utility work before road building",
+      "showMeter": true,
+      "meter": {
+        "mode": "inherit"
+      },
+      "actions": [
+        {
+          "id": "screen-46-another",
+          "label": "Choose another reform",
+          "type": "goto",
+          "target": "screen-41",
+          "style": "primary"
+        },
+        {
+          "id": "screen-46-end",
+          "label": "End",
+          "type": "goto",
+          "target": "screen-47",
+          "style": "secondary"
+        }
+      ]
+    },
+    {
+      "id": "screen-47",
+      "type": "ending",
+      "title": "Thank You for Trying",
+      "description": [
+        "Thank you for trying to fix Neighbourpura's road. This simulation was designed to show how difficult it can be for citizens to repair a simple city road. You shuttled between offices, waited on funding decisions, and navigated layers of bureaucracy - only for the road to be dug up again a few weeks later.",
+        "Each of the reforms you explored has real merit, but none is sufficient on its own. Only when these reforms work together can we meaningfully improve the quality of life in our cities.",
+        "That is the case for a City-Systems approach - one that strengthens the core systems running our cities: integrated planning and design, decentralised and participatory governance, and strong financial and organisational capacity."
+      ],
+      "image": "assets/images/screens/screen-47.jpg",
+      "imageAlt": "A closing reflection on the city-systems approach",
+      "showMeter": true,
+      "meter": {
+        "mode": "inherit"
+      },
+      "actions": [
+        {
+          "id": "screen-47-restart",
+          "label": "Start again",
+          "type": "restart",
+          "target": "screen-01",
+          "style": "primary"
+        }
+      ]
+    },
+    {
+      "id": "screen-48",
+      "type": "choice",
+      "title": "And It Happens Again",
+      "description": [
+        "A few days later, a motorcycle hits a pothole and two people are badly injured. It makes the news briefly, then fades. The road remains broken. And it won't be the last accident."
+      ],
+      "image": "assets/images/screens/screen-48.jpg",
+      "imageAlt": "A dangerous pothole causing another accident on the road",
+      "showMeter": true,
+      "meter": {
+        "mode": "inherit"
+      },
+      "actions": [
+        {
+          "id": "screen-48-fight",
+          "label": "Get back in and fight the good fight",
+          "type": "goto",
+          "target": "screen-24",
+          "style": "primary"
+        },
+        {
+          "id": "screen-48-reforms",
+          "label": "Check out the reforms",
+          "type": "goto",
+          "target": "screen-41",
+          "style": "secondary"
+        }
+      ]
+    },
+    {
+      "id": "screen-49",
+      "type": "ending",
+      "title": "The Matter Is Dropped",
+      "description": [
+        "Without further follow-up, the issue slowly fades from attention. Residents move on to other concerns, and the road stays broken."
+      ],
+      "image": "assets/images/screens/screen-49.jpg",
+      "imageAlt": "Residents moving on while the road remains broken",
+      "showMeter": true,
+      "meter": {
+        "mode": "inherit"
+      },
+      "actions": [
+        {
+          "id": "screen-49-again",
+          "label": "And it happens again",
+          "type": "goto",
+          "target": "screen-48",
           "style": "primary"
         }
       ]

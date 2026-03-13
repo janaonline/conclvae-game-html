@@ -13,6 +13,21 @@
       <section class="visual-column" aria-label="Story image panel">
         <div class="visual-frame" id="visual-frame">
           <img class="screen-image" id="screen-image" alt="">
+          <button class="audio-toggle" id="audio-toggle" type="button" hidden aria-label="Toggle sound">
+            <span class="audio-toggle-icon" id="audio-toggle-icon" aria-hidden="true">
+              <svg class="audio-icon audio-icon-unmuted" viewBox="0 0 24 24" focusable="false">
+                <path d="M3 10v4h4l5 4V6L7 10H3z"></path>
+                <path d="M16 8a5 5 0 0 1 0 8"></path>
+                <path d="M18.5 5.5a8.5 8.5 0 0 1 0 13"></path>
+              </svg>
+              <svg class="audio-icon audio-icon-muted" viewBox="0 0 24 24" focusable="false">
+                <path d="M3 10v4h4l5 4V6L7 10H3z"></path>
+                <path d="M16 8l5 8"></path>
+                <path d="M21 8l-5 8"></path>
+              </svg>
+            </span>
+            <span class="visually-hidden" id="audio-toggle-text">Audio off</span>
+          </button>
           <div class="image-placeholder" id="image-placeholder">
             <p class="placeholder-label">Image placeholder</p>
             <p class="placeholder-copy" id="placeholder-copy">Replace the matching image file to update this screen.</p>
@@ -21,32 +36,40 @@
       </section>
 
       <section class="content-column">
-        <header class="meter" id="meter" hidden>
-          <div class="meter-row">
-            <span class="meter-label" id="meter-label">FRUSTRATION METER</span>
-            <span class="meter-value" id="meter-value">0%</span>
+        <div class="content-top">
+          <div class="top-controls">
+            <button class="header-control" id="back-button" type="button">
+              Go back
+            </button>
+            <button class="header-control" id="restart-button" type="button">
+              Restart game
+            </button>
           </div>
-          <div class="meter-track" aria-hidden="true">
-            <div class="meter-fill" id="meter-fill"></div>
-          </div>
-        </header>
 
-        <section class="story-copy" aria-labelledby="screen-title">
-          <h1 class="screen-title" id="screen-title"></h1>
-          <div class="screen-description" id="screen-description"></div>
-        </section>
+          <header class="meter" id="meter" hidden>
+            <div class="meter-row">
+              <span class="meter-label" id="meter-label">Frustration Meter</span>
+              <span class="meter-value" id="meter-value">0%</span>
+            </div>
+            <div class="meter-track" aria-hidden="true">
+              <div class="meter-fill" id="meter-fill"></div>
+            </div>
+          </header>
+
+          <section class="story-copy" aria-labelledby="screen-title">
+            <h1 class="screen-title" id="screen-title"></h1>
+            <div class="screen-description" id="screen-description"></div>
+          </section>
+        </div>
 
         <section class="action-area" id="action-area">
-          <div class="action-stack" id="action-stack"></div>
-          <footer class="action-footer" id="action-footer"></footer>
+          <div class="decision-area">
+            <div class="action-stack" id="action-stack"></div>
+            <footer class="action-footer" id="action-footer"></footer>
+          </div>
         </section>
       </section>
     </main>
-
-    <button class="audio-toggle" id="audio-toggle" type="button" hidden>
-      <img class="audio-toggle-icon" id="audio-toggle-icon" src="assets/icons/audio-toggle.svg" alt="">
-      <span class="visually-hidden" id="audio-toggle-text">Audio off</span>
-    </button>
 
     <div class="status-card" id="status-card" role="status" aria-live="polite">
       <p class="status-title" id="status-title">Loading story…</p>
