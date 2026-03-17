@@ -14,7 +14,6 @@
   --button-text: #58534d;
   --focus-ring: #2e2b28;
   --meter-track: rgba(68, 63, 58, 0.14);
-  --meter-fill: #36322d;
   --shadow-soft: 0 24px 60px rgba(0, 0, 0, 0.34);
   --background-image: none;
   --transition-fast: 150ms ease;
@@ -246,14 +245,82 @@ body::before {
   width: 100%;
   height: 8px;
   background: var(--meter-track);
+  border-radius: 999px;
   overflow: hidden;
 }
 
 .meter-fill {
+  position: relative;
   width: 0;
   height: 100%;
-  background: var(--meter-fill);
-  transition: width var(--transition-medium);
+  border-radius: inherit;
+  background-size: 140% 100%;
+  background-position: 0 0;
+  transform-origin: left center;
+  transition:
+    width 520ms cubic-bezier(0.22, 1, 0.36, 1),
+    background-position 320ms ease,
+    filter 260ms ease,
+    box-shadow 260ms ease,
+    transform 260ms ease;
+}
+
+.meter-fill::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.34) 48%, transparent 100%);
+  opacity: 0;
+  transform: translateX(-120%);
+  pointer-events: none;
+}
+
+.meter-fill--yellow {
+  background: linear-gradient(90deg, #b99f37 0%, #e2ca5d 50%, #c5a93c 100%);
+  box-shadow: inset 0 0 10px rgba(255, 244, 185, 0.28);
+}
+
+.meter-fill--orange {
+  background: linear-gradient(90deg, #b46d32 0%, #d9995a 50%, #bf7436 100%);
+  box-shadow: inset 0 0 10px rgba(255, 214, 177, 0.26);
+}
+
+.meter-fill--red {
+  background: linear-gradient(90deg, #964144 0%, #bf5d56 50%, #a8484a 100%);
+  box-shadow: inset 0 0 10px rgba(255, 198, 198, 0.24);
+}
+
+.meter.is-updating .meter-track {
+  box-shadow: inset 0 0 0 1px rgba(54, 50, 45, 0.08);
+}
+
+.meter.is-updating .meter-fill {
+  background-position: 100% 0;
+}
+
+.meter.is-updating .meter-fill::after {
+  opacity: 1;
+  animation: meter-sheen 700ms ease-out;
+}
+
+.meter.meter--rising .meter-fill {
+  filter: saturate(1.08) brightness(1.03);
+  transform: scaleY(1.12);
+}
+
+.meter.meter--falling .meter-fill {
+  filter: saturate(0.94) brightness(0.98);
+  transform: scaleY(0.94);
+}
+
+@keyframes meter-sheen {
+  from {
+    transform: translateX(-120%);
+  }
+
+  to {
+    transform: translateX(120%);
+  }
 }
 
 .story-copy {

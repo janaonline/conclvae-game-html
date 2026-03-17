@@ -2,6 +2,8 @@
   function StoryRenderer(elements, settings) {
     this.elements = elements;
     this.settings = settings || {};
+    this.meterAnimationTimer = null;
+    this.lastMeterValue = null;
     this.pendingTimers = [];
     this.renderVersion = 0;
   }
@@ -35,14 +37,55 @@
   };
 
   StoryRenderer.prototype.renderMeter = function (meter) {
+    var fillBands = ["meter-fill--yellow", "meter-fill--orange", "meter-fill--red"];
+    var clampedValue;
+    var previousValue = this.lastMeterValue;
+
     if (!meter.show) {
       this.elements.meter.hidden = true;
+      this.clearMeterAnimationState();
+      this.lastMeterValue = null;
       return;
     }
 
+    clampedValue = window.ConclaveUtils.clampNumber(meter.displayValue, 0, 100);
     this.elements.meter.hidden = false;
-    this.elements.meterValue.textContent = window.ConclaveUtils.toPercent(meter.displayValue);
-    this.elements.meterFill.style.width = window.ConclaveUtils.toPercent(meter.displayValue);
+    this.elements.meterValue.textContent = window.ConclaveUtils.toPercent(clampedValue);
+    this.elements.meterFill.style.width = window.ConclaveUtils.toPercent(clampedValue);
+    this.elements.meterFill.classList.remove(fillBands[0], fillBands[1], fillBands[2]);
+
+    if (clampedValue <= 33) {
+      this.elements.meterFill.classList.add("meter-fill--yellow");
+    } else if (clampedValue <= 67) {
+      this.elements.meterFill.classList.add("meter-fill--orange");
+    } else {
+      this.elements.meterFill.classList.add("meter-fill--red");
+    }
+
+    if (previousValue !== null && previousValue !== clampedValue) {
+      this.triggerMeterAnimation(clampedValue > previousValue);
+    }
+
+    this.lastMeterValue = clampedValue;
+  };
+
+  StoryRenderer.prototype.triggerMeterAnimation = function (isRising) {
+    this.clearMeterAnimationState();
+    this.elements.meter.classList.add("is-updating");
+    this.elements.meter.classList.add(isRising ? "meter--rising" : "meter--falling");
+
+    this.meterAnimationTimer = window.setTimeout(function () {
+      this.clearMeterAnimationState();
+    }.bind(this), 700);
+  };
+
+  StoryRenderer.prototype.clearMeterAnimationState = function () {
+    if (this.meterAnimationTimer) {
+      window.clearTimeout(this.meterAnimationTimer);
+      this.meterAnimationTimer = null;
+    }
+
+    this.elements.meter.classList.remove("is-updating", "meter--rising", "meter--falling");
   };
 
   StoryRenderer.prototype.renderCopy = function (viewModel, renderVersion) {
