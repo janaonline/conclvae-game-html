@@ -9,7 +9,7 @@
       "description": [
         "Ten years have passed since you moved to this neighbourhood. The road in front of the bus stop where you take your daily bus to work has been in poor condition. It was dug up last month for laying pipes. It is still the same. You see buses tilting and two-wheelers almost toppling on the broken road.",
         "Residents from your neighbourhood decide to get it fixed.",
-        "What would you do?"
+        "What will you do?"
       ],
       "image": "assets/images/screens/screen-01.png",
       "imageAlt": "Story illustration for Time to look at your neighbourhood again",
@@ -47,7 +47,8 @@
       "type": "choice",
       "title": "A Broken Road, A Broken Leg",
       "description": [
-        "You continue using the broken road. One day, you trip on a stone and break your leg. You miss work for many weeks and spend ₹10,000 on medical care."
+        "You continue using the broken road. One day, you trip on a stone and break your leg. You miss work for many weeks and spend ₹10,000 on medical care.",
+        "What will you do now?"
       ],
       "image": "assets/images/screens/screen-02.png",
       "imageAlt": "Story illustration for A Broken Road, A Broken Leg",
@@ -80,13 +81,6 @@
           "style": "option",
           "setRouteContext": "injury"
         }
-      ],
-      "revealBlocks": [
-        {
-          "text": "What will you do now?",
-          "delayMs": 5000,
-          "style": "prompt"
-        }
       ]
     },
     {
@@ -105,7 +99,7 @@
       "actions": [
         {
           "id": "screen-03-find-out-about-this-game",
-          "label": "Find out about this game",
+          "label": "Find out about this journey",
           "type": "goto",
           "target": "screen-04",
           "style": "primary"
@@ -117,7 +111,7 @@
       "type": "result",
       "title": "About It",
       "description": [
-        "This interactive story has been developed to showcase systemic challenges citizens face to fix a broken road. Janaagraha has been advocating reforms to solve these challenges."
+        "This Journey has been developed to showcase systemic challenges citizens face to fix a broken road. Janaagraha has been advocating for many reforms to solve these challenges."
       ],
       "image": "assets/images/screens/screen-04.png",
       "imageAlt": "Story illustration for About It",
@@ -140,7 +134,8 @@
       "type": "choice",
       "title": "Invited to the group",
       "description": [
-        "You reach out to the residents' group and they invite you to join them."
+        "You reach out to the residents' group. They invite you to join them on this journey!",
+        "What would you do?"
       ],
       "image": "assets/images/screens/screen-05.png",
       "imageAlt": "Story illustration for Invited to the group",
@@ -156,9 +151,9 @@
       "actions": [
         {
           "id": "screen-05-submit-your-complaint-and-leave",
-          "label": "Submit your complaint and leave",
+          "label": "Just say that you have faced the issue and leave for work",
           "type": "goto",
-          "target": "screen-04",
+          "target": "screen-02",
           "style": "primary"
         },
         {
@@ -191,7 +186,7 @@
       "actions": [
         {
           "id": "screen-06-join-the-group",
-          "label": "Join the group",
+          "label": "Join the residents",
           "type": "goto",
           "target": "screen-07",
           "style": "primary"
@@ -241,7 +236,8 @@
       "type": "choice",
       "title": "You Cheered Them On",
       "description": [
-        "You cheered the group on and hoped they would succeed. Two weeks later, the road is still broken."
+        "You cheered the group on and hoped they would succeed. Two weeks later, the road is still broken.",
+        "What will you do now?"
       ],
       "image": "assets/images/screens/screen-08.png",
       "imageAlt": "Story illustration for You Cheered Them On",
@@ -271,13 +267,6 @@
           "type": "goto",
           "target": "screen-50",
           "style": "option"
-        }
-      ],
-      "revealBlocks": [
-        {
-          "text": "What will you do now?",
-          "delayMs": 1500,
-          "style": "prompt"
         }
       ]
     },
@@ -458,7 +447,7 @@
       "title": "Complaint Registered, No Follow-Up",
       "description": [
         "Your complaint is registered online. But there's no acknowledgement or follow-up.",
-        "What happens next?"
+        "What would you do next?"
       ],
       "image": "assets/images/screens/screen-14.png",
       "imageAlt": "Story illustration for Complaint Registered, No Follow-Up",
@@ -616,7 +605,7 @@
       "type": "result",
       "title": "The Councillor Hears You Out",
       "description": [
-        "You return on Sunday. The Councillor listens and says she'll inform the Assistant Engineer.",
+        "You return on Sunday. The Councillor listens and says she'll inform the Assistant Engineer (AE).",
         "Will you wait for the AE to visit your neighbourhood?"
       ],
       "image": "assets/images/screens/screen-20.png",
@@ -1433,7 +1422,7 @@
       "type": "ending",
       "title": "Thank You for Playing",
       "description": [
-        "You shuttled between offices, chased funds, and fought bureaucracy only for the road to be dug up again. No single reform fixes this. Only when they work together can our cities truly improve. That's the City-Systems approach."
+        "You shuttled between offices, chased funds, and fought bureaucracy only for the road to be dug up again. No single reform fixes this. Only when they work together can our cities truly improve. That's the City Systems approach."
       ],
       "image": "assets/images/screens/screen-47.png",
       "imageAlt": "Story illustration for Thank You for Playing",
@@ -1520,16 +1509,16 @@
       "actions": [
         {
           "id": "screen-50-stay-in-the-game",
-          "label": "Stay in the game",
+          "label": "Keep pushing",
           "type": "goto",
           "target": "screen-19",
           "style": "primary"
         },
         {
           "id": "screen-50-exit-game-and-check-out-reforms",
-          "label": "Exit game and check out reforms",
+          "label": "Walk away",
           "type": "goto",
-          "target": "screen-41",
+          "target": "screen-04",
           "style": "secondary"
         }
       ]

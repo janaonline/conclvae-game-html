@@ -286,17 +286,60 @@
     return dynamicDescription.fallback || [];
   };
 
+  StoryEngine.prototype.getWalkawayRecoveryAction = function () {
+    var sourceScreenId = this.state.walkawayFromScreenId;
+    var skippedActionId = this.state.walkawayFromActionId;
+    var sourceScreen = sourceScreenId ? this.screenIndex[sourceScreenId] : null;
+    var actions;
+    var eligibleActions = [];
+    var priorityStyles = ["primary", "option", "secondary"];
+    var actionIndex;
+    var styleIndex;
+
+    if (!sourceScreen) {
+      return null;
+    }
+
+    actions = this.getVisibleActions(sourceScreen);
+
+    for (actionIndex = 0; actionIndex < actions.length; actionIndex += 1) {
+      if (actions[actionIndex].type !== "goto" || actions[actionIndex].id === skippedActionId) {
+        continue;
+      }
+
+      eligibleActions.push(actions[actionIndex]);
+    }
+
+    if (!eligibleActions.length) {
+      return null;
+    }
+
+    if (sourceScreen.majorEventActionId) {
+      for (actionIndex = 0; actionIndex < eligibleActions.length; actionIndex += 1) {
+        if (eligibleActions[actionIndex].id === sourceScreen.majorEventActionId) {
+          return eligibleActions[actionIndex];
+        }
+      }
+    }
+
+    for (styleIndex = 0; styleIndex < priorityStyles.length; styleIndex += 1) {
+      for (actionIndex = 0; actionIndex < eligibleActions.length; actionIndex += 1) {
+        if (eligibleActions[actionIndex].style === priorityStyles[styleIndex]) {
+          return eligibleActions[actionIndex];
+        }
+      }
+    }
+
+    return eligibleActions[0];
+  };
+
   StoryEngine.prototype.resolveTargetScreenId = function (screen, action) {
     if (screen.id === "screen-50" && action.id === "screen-50-stay-in-the-game") {
-      if (this.state.accidentsEncountered <= 0) {
-        return "screen-02";
-      }
+      var recoveryAction = this.getWalkawayRecoveryAction();
 
-      if (this.state.accidentsEncountered === 1) {
-        return "screen-48";
+      if (recoveryAction && recoveryAction.target !== "screen-50") {
+        return recoveryAction.target;
       }
-
-      return "screen-49";
     }
 
     if (action.target === "screen-50" && screen.id !== "screen-50") {
@@ -314,6 +357,11 @@
 
   StoryEngine.prototype.applyEntryState = function (targetId) {
     this.state.currentScreenId = targetId;
+
+    if (targetId !== "screen-50") {
+      this.state.walkawayFromActionId = null;
+      this.state.walkawayFromScreenId = null;
+    }
 
     if (targetId === "screen-02" || targetId === "screen-48") {
       this.state.accidentsEncountered += 1;
