@@ -1,7 +1,7 @@
 :root {
   --shell-pad: clamp(0.9rem, 2.4vw, 1.8rem);
-  --page-bg: #070707;
-  --page-glow: rgba(255, 255, 255, 0.05);
+  --page-bg: #ece9e3;
+  --page-glow: rgba(255, 255, 255, 0.03);
   --card-bg: #e7e5e0;
   --card-border: rgba(255, 255, 255, 0.08);
   --text-strong: #55514c;
@@ -30,6 +30,8 @@
 html,
 body {
   margin: 0;
+  width: 100%;
+  height: 100%;
   min-height: 100%;
   font-family:
     ui-monospace,
@@ -56,7 +58,7 @@ body::before {
     var(--background-image);
   background-position: center;
   background-size: cover;
-  opacity: 0.12;
+  opacity: 0.04;
   pointer-events: none;
 }
 
@@ -64,9 +66,13 @@ body::before {
   position: relative;
   z-index: 1;
   display: grid;
-  place-items: center;
+  place-items: stretch;
+  width: 100%;
   min-height: 100vh;
-  padding: var(--shell-pad);
+  min-height: 100dvh;
+  height: 100vh;
+  height: 100dvh;
+  padding: 0;
   overflow: hidden;
 }
 
@@ -74,13 +80,13 @@ body::before {
   display: grid;
   grid-template-columns: minmax(220px, 320px) minmax(0, 1fr);
   gap: clamp(1rem, 2vw, 1.7rem);
-  width: min(1100px, calc(100vw - (var(--shell-pad) + var(--shell-pad))));
-  height: min(740px, calc(100vh - (var(--shell-pad) + var(--shell-pad))));
-  max-height: calc(100vh - (var(--shell-pad) + var(--shell-pad)));
+  width: 100%;
+  height: 100%;
+  max-height: none;
   padding: clamp(0.9rem, 2.2vw, 1.7rem);
   background: var(--card-bg);
-  border: 1px solid var(--card-border);
-  box-shadow: var(--shadow-soft);
+  border: 0;
+  box-shadow: none;
   overflow: hidden;
 }
 
@@ -220,8 +226,8 @@ body::before {
 .meter-row {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
+  justify-content: flex-start;
+  gap: 0;
   margin-bottom: 0.45rem;
 }
 
@@ -237,7 +243,7 @@ body::before {
 }
 
 .meter-value {
-  font-size: 1rem;
+  display: none;
 }
 
 .meter-track {
@@ -615,7 +621,7 @@ body::before {
     grid-template-columns: 1fr;
     grid-template-rows: minmax(180px, 34vh) minmax(0, 1fr);
     width: 100%;
-    height: calc(100vh - (var(--shell-pad) + var(--shell-pad)));
+    height: 100%;
   }
 
   .visual-frame {
@@ -643,10 +649,6 @@ body::before {
 
   .meter-label {
     font-size: 0.78rem;
-  }
-
-  .meter-value {
-    font-size: 0.88rem;
   }
 
   .screen-title {

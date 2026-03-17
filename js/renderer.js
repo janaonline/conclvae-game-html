@@ -43,6 +43,11 @@
 
     if (!meter.show) {
       this.elements.meter.hidden = true;
+      this.elements.meter.removeAttribute("role");
+      this.elements.meter.removeAttribute("aria-valuemin");
+      this.elements.meter.removeAttribute("aria-valuemax");
+      this.elements.meter.removeAttribute("aria-valuenow");
+      this.elements.meter.removeAttribute("aria-valuetext");
       this.clearMeterAnimationState();
       this.lastMeterValue = null;
       return;
@@ -50,6 +55,11 @@
 
     clampedValue = window.ConclaveUtils.clampNumber(meter.displayValue, 0, 100);
     this.elements.meter.hidden = false;
+    this.elements.meter.setAttribute("role", "progressbar");
+    this.elements.meter.setAttribute("aria-valuemin", "0");
+    this.elements.meter.setAttribute("aria-valuemax", "100");
+    this.elements.meter.setAttribute("aria-valuenow", String(clampedValue));
+    this.elements.meter.setAttribute("aria-valuetext", "Frustration " + window.ConclaveUtils.toPercent(clampedValue));
     this.elements.meterValue.textContent = window.ConclaveUtils.toPercent(clampedValue);
     this.elements.meterFill.style.width = window.ConclaveUtils.toPercent(clampedValue);
     this.elements.meterFill.classList.remove(fillBands[0], fillBands[1], fillBands[2]);
@@ -116,18 +126,7 @@
       }.bind(this, copyBlocks[index]), totalDelay);
     }
 
-    if (totalDelay === 0) {
-      this.renderActions(viewModel.screen, viewModel.actions, false);
-      return;
-    }
-
-    this.schedule(function () {
-      if (renderVersion !== this.renderVersion) {
-        return;
-      }
-
-      this.renderActions(viewModel.screen, viewModel.actions, hasDelayedReveal);
-    }.bind(this), totalDelay);
+    this.renderActions(viewModel.screen, viewModel.actions, hasDelayedReveal);
   };
 
   StoryRenderer.prototype.renderImage = function (screen) {
