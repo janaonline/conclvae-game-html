@@ -1522,7 +1522,7 @@
           "id": "screen-50-stay-in-the-game",
           "label": "Stay in the game",
           "type": "goto",
-          "target": "screen-02",
+          "target": "screen-19",
           "style": "primary"
         },
         {

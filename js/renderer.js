@@ -132,9 +132,18 @@
   StoryRenderer.prototype.renderImage = function (screen) {
     var elements = this.elements;
     var image = elements.image;
+    var imageSource = screen && typeof screen.image === "string" ? screen.image.trim() : "";
+    var imageCache = this.settings.imageCache;
+    var cachedImage = imageCache && imageSource ? imageCache.getLoadedImage(imageSource) : null;
+    var imageFileName = imageSource ? imageSource.split("/").pop() : "";
 
-    elements.placeholderCopy.textContent = "Replace " + screen.image.split("/").pop() + " to update this screen image.";
-    elements.visualFrame.classList.remove("has-image");
+    elements.placeholderCopy.textContent = imageFileName
+      ? "Replace " + imageFileName + " to update this screen image."
+      : "Add an image file to update this screen.";
+
+    if (!cachedImage) {
+      elements.visualFrame.classList.remove("has-image");
+    }
 
     image.onload = function () {
       elements.visualFrame.classList.add("has-image");
@@ -145,7 +154,21 @@
     };
 
     image.alt = screen.imageAlt || "";
-    image.src = screen.image || "";
+
+    if (!imageSource) {
+      image.removeAttribute("src");
+      return;
+    }
+
+    if (imageCache && imageCache.getStatus(imageSource) === "idle") {
+      imageCache.preloadImage(imageSource);
+    }
+
+    if (cachedImage) {
+      elements.visualFrame.classList.add("has-image");
+    }
+
+    image.src = cachedImage ? cachedImage.src : imageSource;
   };
 
   StoryRenderer.prototype.renderActions = function (screen, actions, shouldFocus) {

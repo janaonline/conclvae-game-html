@@ -196,6 +196,146 @@
     document.documentElement.style.setProperty("--background-image", value);
   }
 
+  function createImageCache() {
+    var cache = new Map();
+
+    function normalizeSource(src) {
+      return typeof src === "string" ? src.trim() : "";
+    }
+
+    function getEntry(src) {
+      var normalized = normalizeSource(src);
+
+      if (!normalized) {
+        return null;
+      }
+
+      return cache.get(normalized) || null;
+    }
+
+    function ensureEntry(src) {
+      var normalized = normalizeSource(src);
+      var entry;
+
+      if (!normalized) {
+        return null;
+      }
+
+      entry = cache.get(normalized);
+
+      if (entry) {
+        return entry;
+      }
+
+      entry = {
+        error: null,
+        image: new Image(),
+        promise: null,
+        src: normalized,
+        status: "idle"
+      };
+
+      cache.set(normalized, entry);
+      return entry;
+    }
+
+    function preloadImage(src) {
+      var entry = ensureEntry(src);
+
+      if (!entry) {
+        return Promise.resolve(null);
+      }
+
+      if (entry.status === "loaded" && entry.image.complete && entry.image.naturalWidth > 0) {
+        return Promise.resolve(entry.image);
+      }
+
+      if (entry.status === "loading" && entry.promise) {
+        return entry.promise;
+      }
+
+      if (entry.status === "error") {
+        return Promise.resolve(null);
+      }
+
+      entry.status = "loading";
+      entry.promise = new Promise(function (resolve) {
+        function cleanup() {
+          entry.image.onload = null;
+          entry.image.onerror = null;
+        }
+
+        function resolveLoaded() {
+          cleanup();
+          entry.error = null;
+          entry.status = "loaded";
+          resolve(entry.image);
+        }
+
+        function resolveError() {
+          cleanup();
+          entry.error = new Error("Could not preload " + entry.src + ".");
+          entry.status = "error";
+          resolve(null);
+        }
+
+        entry.image.onload = resolveLoaded;
+        entry.image.onerror = resolveError;
+        entry.image.src = entry.src;
+
+        if (entry.image.complete) {
+          window.setTimeout(function () {
+            if (entry.status !== "loading") {
+              return;
+            }
+
+            if (entry.image.naturalWidth > 0) {
+              resolveLoaded();
+              return;
+            }
+
+            resolveError();
+          }, 0);
+        }
+      });
+
+      return entry.promise;
+    }
+
+    function preloadImages(sourceList) {
+      var list = Array.isArray(sourceList) ? sourceList : [];
+      var jobs = [];
+
+      for (var index = 0; index < list.length; index += 1) {
+        jobs.push(preloadImage(list[index]));
+      }
+
+      return Promise.all(jobs);
+    }
+
+    function getLoadedImage(src) {
+      var entry = getEntry(src);
+
+      if (!entry || entry.status !== "loaded" || !entry.image.complete || entry.image.naturalWidth <= 0) {
+        return null;
+      }
+
+      return entry.image;
+    }
+
+    function getStatus(src) {
+      var entry = getEntry(src);
+      return entry ? entry.status : "idle";
+    }
+
+    return {
+      getLoadedImage: getLoadedImage,
+      getStatus: getStatus,
+      preloadImage: preloadImage,
+      preloadImages: preloadImages
+    };
+  }
+
   function getActionClassNames(action) {
     var classes = ["story-action"];
     var styleName = action && action.style ? action.style : "secondary";
@@ -215,6 +355,7 @@
     applyBackgroundImage: applyBackgroundImage,
     clampNumber: clampNumber,
     clearNode: clearNode,
+    createImageCache: createImageCache,
     createNode: createNode,
     getActionClassNames: getActionClassNames,
     loadJson: loadJson,

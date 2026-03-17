@@ -40,12 +40,23 @@
   }
 
   function startApp(settings, story, elements, renderer) {
+    var screenIndex;
+    var allImagePaths;
+    var imageCache;
+    var engine;
+    var audioController;
+    var initialViewModel;
+
     validateStory(story);
 
     window.ConclaveUtils.applyBackgroundImage(settings.backgroundImage, settings.showBackgroundImage);
 
-    var engine = new window.ConclaveStoryEngine(story, settings);
-    var audioController = new window.ConclaveAudioController(
+    screenIndex = buildScreenIndex(story);
+    allImagePaths = collectStoryImagePaths(story);
+    imageCache = window.ConclaveUtils.createImageCache();
+    renderer.settings.imageCache = imageCache;
+    engine = new window.ConclaveStoryEngine(story, settings);
+    audioController = new window.ConclaveAudioController(
       settings,
       elements.audioToggle,
       elements.audioToggleIcon,
@@ -53,8 +64,10 @@
     );
 
     audioController.init();
-    bindActions(elements, engine, renderer, audioController);
-    renderer.render(engine.getCurrentViewModel());
+    initialViewModel = engine.getCurrentViewModel();
+    bindActions(elements, engine, renderer, audioController, story, screenIndex, imageCache);
+    renderView(initialViewModel, renderer, story, screenIndex, imageCache);
+    startBackgroundImageWarmup(imageCache, getBackgroundImagePaths(story, initialViewModel, screenIndex, allImagePaths));
     renderer.setStatus("Story ready", "Edit data/story.json or replace the matching assets to customize the experience.", true);
     renderer.setStatusAction("", true, null);
     renderer.announce("Loaded " + story.screens.length + " screens.");
@@ -90,7 +103,7 @@
     });
   }
 
-  function bindActions(elements, engine, renderer, audioController) {
+  function bindActions(elements, engine, renderer, audioController, story, screenIndex, imageCache) {
     if (elements.layout.dataset.controlsBound === "true") {
       return;
     }
@@ -106,7 +119,7 @@
       try {
         audioController.playClick();
         var viewModel = engine.handleAction(button.dataset.actionId);
-        renderer.render(viewModel);
+        renderView(viewModel, renderer, story, screenIndex, imageCache);
         renderer.announce(viewModel.title + ". " + viewModel.clickCount + " clicks so far.");
       } catch (error) {
         renderer.setStatus("Action error", error.message, false);
@@ -116,16 +129,134 @@
     elements.restartButton.addEventListener("click", function () {
       audioController.playClick();
       var viewModel = engine.restart();
-      renderer.render(viewModel);
+      renderView(viewModel, renderer, story, screenIndex, imageCache);
       renderer.announce("Restarted. " + viewModel.title + ".");
     });
 
     elements.backButton.addEventListener("click", function () {
       audioController.playClick();
       var viewModel = engine.canGoBack() ? engine.goBack() : engine.restart();
-      renderer.render(viewModel);
+      renderView(viewModel, renderer, story, screenIndex, imageCache);
       renderer.announce(viewModel.title + ".");
     });
+  }
+
+  function renderView(viewModel, renderer, story, screenIndex, imageCache) {
+    renderer.render(viewModel);
+    imageCache.preloadImages(getPriorityImagePaths(story, viewModel, screenIndex));
+  }
+
+  function buildScreenIndex(story) {
+    var index = {};
+    var screens = story && Array.isArray(story.screens) ? story.screens : [];
+
+    for (var screenIndex = 0; screenIndex < screens.length; screenIndex += 1) {
+      index[screens[screenIndex].id] = screens[screenIndex];
+    }
+
+    return index;
+  }
+
+  function collectStoryImagePaths(story) {
+    var screens = story && Array.isArray(story.screens) ? story.screens : [];
+    var seen = {};
+    var imagePaths = [];
+
+    for (var screenIndex = 0; screenIndex < screens.length; screenIndex += 1) {
+      var imagePath = getImagePath(screens[screenIndex]);
+
+      if (!imagePath || seen[imagePath]) {
+        continue;
+      }
+
+      seen[imagePath] = true;
+      imagePaths.push(imagePath);
+    }
+
+    return imagePaths;
+  }
+
+  function getPriorityImagePaths(story, viewModel, screenIndex) {
+    var seen = {};
+    var priorityPaths = [];
+    var earlyScreens = story && Array.isArray(story.screens) ? story.screens.slice(0, 4) : [];
+    var actions = viewModel && Array.isArray(viewModel.actions) ? viewModel.actions : [];
+
+    addImagePath(priorityPaths, seen, getImagePath(viewModel && viewModel.screen));
+
+    for (var earlyIndex = 0; earlyIndex < earlyScreens.length; earlyIndex += 1) {
+      addImagePath(priorityPaths, seen, getImagePath(earlyScreens[earlyIndex]));
+    }
+
+    for (var actionIndex = 0; actionIndex < actions.length; actionIndex += 1) {
+      var targetId = actions[actionIndex].type === "restart" ? story.startScreenId : actions[actionIndex].target;
+      var targetScreen = targetId ? screenIndex[targetId] : null;
+
+      addImagePath(priorityPaths, seen, getImagePath(targetScreen));
+    }
+
+    return priorityPaths;
+  }
+
+  function getBackgroundImagePaths(story, viewModel, screenIndex, allImagePaths) {
+    var priorityLookup = {};
+    var priorityPaths = getPriorityImagePaths(story, viewModel, screenIndex);
+    var backgroundPaths = [];
+
+    for (var priorityIndex = 0; priorityIndex < priorityPaths.length; priorityIndex += 1) {
+      priorityLookup[priorityPaths[priorityIndex]] = true;
+    }
+
+    for (var imageIndex = 0; imageIndex < allImagePaths.length; imageIndex += 1) {
+      if (!priorityLookup[allImagePaths[imageIndex]]) {
+        backgroundPaths.push(allImagePaths[imageIndex]);
+      }
+    }
+
+    return backgroundPaths;
+  }
+
+  function startBackgroundImageWarmup(imageCache, imagePaths) {
+    var nextIndex = 0;
+    var batchSize = 4;
+
+    function queueNextBatch() {
+      var batch = imagePaths.slice(nextIndex, nextIndex + batchSize);
+
+      if (!batch.length) {
+        return;
+      }
+
+      nextIndex += batch.length;
+      imageCache.preloadImages(batch);
+
+      if (typeof window.requestIdleCallback === "function") {
+        window.requestIdleCallback(queueNextBatch, { timeout: 180 });
+        return;
+      }
+
+      window.setTimeout(queueNextBatch, 90);
+    }
+
+    if (typeof window.requestIdleCallback === "function") {
+      window.requestIdleCallback(queueNextBatch, { timeout: 120 });
+      return;
+    }
+
+    window.setTimeout(queueNextBatch, 60);
+  }
+
+  function getImagePath(screen) {
+    return screen && typeof screen.image === "string" ? screen.image.trim() : "";
+  }
+
+  function addImagePath(collection, seen, imagePath) {
+    if (!imagePath || seen[imagePath]) {
+      return;
+    }
+
+    seen[imagePath] = true;
+    collection.push(imagePath);
   }
 
   function validateStory(story) {
