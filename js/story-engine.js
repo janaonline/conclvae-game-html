@@ -18,6 +18,7 @@
   StoryEngine.prototype.reset = function () {
     this.previousStates = [];
     this.state = {
+      accidentsEncountered: 0,
       authoredFrustration: 0,
       clickCount: 0,
       currentScreenId: this.story.startScreenId,
@@ -28,6 +29,8 @@
       reformLoopCount: 0,
       routeContext: null,
       selectedReformKey: null,
+      walkawayFromActionId: null,
+      walkawayFromScreenId: null,
       screenVisits: {}
     };
 
@@ -283,10 +286,48 @@
     return dynamicDescription.fallback || [];
   };
 
+  StoryEngine.prototype.resolveTargetScreenId = function (screen, action) {
+    if (screen.id === "screen-50" && action.id === "screen-50-stay-in-the-game") {
+      if (this.state.accidentsEncountered <= 0) {
+        return "screen-02";
+      }
+
+      if (this.state.accidentsEncountered === 1) {
+        return "screen-48";
+      }
+
+      return "screen-49";
+    }
+
+    if (action.target === "screen-50" && screen.id !== "screen-50") {
+      if (this.state.accidentsEncountered >= 2) {
+        return "screen-49";
+      }
+
+      this.state.walkawayFromScreenId = screen.id;
+      this.state.walkawayFromActionId = action.id;
+      return "screen-50";
+    }
+
+    return action.target;
+  };
+
+  StoryEngine.prototype.applyEntryState = function (targetId) {
+    this.state.currentScreenId = targetId;
+
+    if (targetId === "screen-02" || targetId === "screen-48") {
+      this.state.accidentsEncountered += 1;
+    }
+
+    this.state.screenVisits[targetId] = (this.state.screenVisits[targetId] || 0) + 1;
+    this.state.authoredFrustration = this.resolveAuthoredFrustration(this.getCurrentScreen());
+  };
+
   StoryEngine.prototype.handleAction = function (actionId) {
     var screen = this.getCurrentScreen();
     var actions = Array.isArray(screen.actions) ? screen.actions : [];
     var selectedAction = null;
+    var targetId;
 
     for (var index = 0; index < actions.length; index += 1) {
       if (actions[index].id === actionId) {
@@ -299,10 +340,6 @@
       throw new Error("Action not found: " + actionId);
     }
 
-    if (selectedAction.type !== "restart" && !this.screenIndex[selectedAction.target]) {
-      throw new Error("Target screen not found: " + selectedAction.target);
-    }
-
     if (selectedAction.type !== "restart") {
       this.previousStates.push(this.captureStateSnapshot());
     }
@@ -313,6 +350,12 @@
 
     if (selectedAction.type === "restart") {
       return this.restart();
+    }
+
+    targetId = this.resolveTargetScreenId(screen, selectedAction);
+
+    if (!this.screenIndex[targetId]) {
+      throw new Error("Target screen not found: " + targetId);
     }
 
     if (selectedAction.setFailureReasonKey) {
@@ -330,14 +373,11 @@
     this.state.history.push({
       actionId: selectedAction.id,
       from: screen.id,
-      to: selectedAction.target
+      to: targetId
     });
     this.state.lastActionId = selectedAction.id;
     this.state.lastScreenId = screen.id;
-    this.state.currentScreenId = selectedAction.target;
-    this.state.screenVisits[this.state.currentScreenId] = (this.state.screenVisits[this.state.currentScreenId] || 0) + 1;
-
-    this.state.authoredFrustration = this.resolveAuthoredFrustration(this.getCurrentScreen());
+    this.applyEntryState(targetId);
     return this.getCurrentViewModel();
   };
 

@@ -1,5 +1,5 @@
 (function () {
-  var EXPECTED_SCREEN_COUNT = 49;
+  var EXPECTED_SCREEN_COUNT = 50;
 
   document.addEventListener("DOMContentLoaded", init);
 
