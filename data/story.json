@@ -11,7 +11,7 @@
         "Residents from your neighbourhood decide to get it fixed.",
         "What will you do?"
       ],
-      "image": "assets/images/screens/screen-01.png",
+      "image": "assets/images/screens/screen-01.jpg",
       "imageAlt": "Story illustration for Time to look at your neighbourhood again",
       "showMeter": true,
       "meter": {
@@ -50,7 +50,7 @@
         "You continue using the broken road. One day, you trip on a stone and break your leg. You miss work for many weeks and spend ₹10,000 on medical care.",
         "What will you do now?"
       ],
-      "image": "assets/images/screens/screen-02.png",
+      "image": "assets/images/screens/screen-02.jpg",
       "imageAlt": "Story illustration for A Broken Road, A Broken Leg",
       "showMeter": true,
       "meter": {
@@ -90,7 +90,7 @@
       "description": [
         "Your leg heals. You’re more careful now. You know which patches to avoid. The others are still at it. You wish them luck. Maybe it’ll work out, maybe it won’t."
       ],
-      "image": "assets/images/screens/screen-03.png",
+      "image": "assets/images/screens/screen-03.jpg",
       "imageAlt": "Story illustration for You Move On",
       "showMeter": true,
       "meter": {
@@ -113,7 +113,7 @@
       "description": [
         "This journey has been developed to showcase systemic challenges citizens face to fix a broken road. Janaagraha has been advocating for many reforms to solve these challenges."
       ],
-      "image": "assets/images/screens/screen-04.png",
+      "image": "assets/images/screens/screen-04.jpg",
       "imageAlt": "Story illustration for About It",
       "showMeter": true,
       "meter": {
@@ -137,7 +137,7 @@
         "You reach out to the residents' group. They invite you to join them on this journey!",
         "What would you do?"
       ],
-      "image": "assets/images/screens/screen-05.png",
+      "image": "assets/images/screens/screen-05.jpg",
       "imageAlt": "Story illustration for Invited to the group",
       "showMeter": true,
       "meter": {
@@ -172,7 +172,7 @@
       "description": [
         "The residents are thinking of approaching the Councillor."
       ],
-      "image": "assets/images/screens/screen-06.png",
+      "image": "assets/images/screens/screen-06.jpg",
       "imageAlt": "Story illustration for The Residents Fill You In",
       "showMeter": true,
       "meter": {
@@ -201,7 +201,7 @@
         "Two weeks in, and nothing has changed.",
         "What will you do now?"
       ],
-      "image": "assets/images/screens/screen-07.png",
+      "image": "assets/images/screens/screen-07.jpg",
       "imageAlt": "Story illustration for Two Weeks Have Passed",
       "showMeter": true,
       "meter": {
@@ -239,7 +239,7 @@
         "You cheered the group on and hoped they would succeed. Two weeks later, the road is still broken.",
         "What will you do now?"
       ],
-      "image": "assets/images/screens/screen-08.png",
+      "image": "assets/images/screens/screen-08.jpg",
       "imageAlt": "Story illustration for You Cheered Them On",
       "showMeter": true,
       "meter": {
@@ -278,7 +278,7 @@
         "The group approached the MLA but hasn't heard back.",
         "How can you help them?"
       ],
-      "image": "assets/images/screens/screen-09.png",
+      "image": "assets/images/screens/screen-09.jpg",
       "imageAlt": "Story illustration for Still Waiting on the MLA",
       "showMeter": true,
       "meter": {
@@ -310,7 +310,7 @@
         "Your neighbour says the MLA will fix the road but he's not part of the group, so you can't be sure.",
         "Talk to someone from the group?"
       ],
-      "image": "assets/images/screens/screen-10.png",
+      "image": "assets/images/screens/screen-10.jpg",
       "imageAlt": "Story illustration for Word on the Street",
       "showMeter": true,
       "meter": {
@@ -341,7 +341,7 @@
       "description": [
         "Ten residents have come together. You meet to decide on a plan of action."
       ],
-      "image": "assets/images/screens/screen-11.png",
+      "image": "assets/images/screens/screen-11.jpg",
       "imageAlt": "Story illustration for The Group Comes Together",
       "showMeter": true,
       "meter": {
@@ -386,7 +386,7 @@
       "description": [
         "The MLA hears you out but says road repairs fall under the Municipal Corporation. He's not the right person for this."
       ],
-      "image": "assets/images/screens/screen-12.png",
+      "image": "assets/images/screens/screen-12.jpg",
       "imageAlt": "Story illustration for Out of the MLA's Hands",
       "showMeter": true,
       "meter": {
@@ -410,7 +410,7 @@
       "description": [
         "The group sets out to meet the Councillor, but nobody knows the exact location of their office."
       ],
-      "image": "assets/images/screens/screen-13.png",
+      "image": "assets/images/screens/screen-13.jpg",
       "imageAlt": "Story illustration for Where Is the Councillor?",
       "showMeter": true,
       "meter": {
@@ -449,7 +449,7 @@
         "Your complaint is registered online. But there's no acknowledgement or follow-up.",
         "What would you do next?"
       ],
-      "image": "assets/images/screens/screen-14.png",
+      "image": "assets/images/screens/screen-14.jpg",
       "imageAlt": "Story illustration for Complaint Registered, No Follow-Up",
       "showMeter": true,
       "meter": {
@@ -480,7 +480,7 @@
       "description": [
         "The MLA puts you in touch with the Councillor directly."
       ],
-      "image": "assets/images/screens/screen-15.png",
+      "image": "assets/images/screens/screen-15.jpg",
       "imageAlt": "Story illustration for Connected at Last",
       "showMeter": true,
       "meter": {
@@ -503,7 +503,7 @@
       "description": [
         "You find an address online, but the Councillor doesn't sit there. Someone else may know more."
       ],
-      "image": "assets/images/screens/screen-16.png",
+      "image": "assets/images/screens/screen-16.jpg",
       "imageAlt": "Story illustration for Wrong Address",
       "showMeter": true,
       "meter": {
@@ -528,7 +528,7 @@
         "The group doesn't know either, but someone suggests trying the municipal office for the address.",
         "It's a holiday today. The group decides to visit the office tomorrow. Will you join them?"
       ],
-      "image": "assets/images/screens/screen-17.png",
+      "image": "assets/images/screens/screen-17.jpg",
       "imageAlt": "Story illustration for The Group Has a Suggestion",
       "showMeter": true,
       "meter": {
@@ -552,7 +552,7 @@
       "description": [
         "Unlike the internet, the municipal office staff have the right details. You now know how to reach the Councillor."
       ],
-      "image": "assets/images/screens/screen-18.png",
+      "image": "assets/images/screens/screen-18.jpg",
       "imageAlt": "Story illustration for The Municipal Office to the rescue",
       "showMeter": true,
       "meter": {
@@ -577,7 +577,7 @@
         "You arrive at the Councillor's office, but they're unavailable today. They promise to meet with you on Sunday.",
         "What will you do?"
       ],
-      "image": "assets/images/screens/screen-19.png",
+      "image": "assets/images/screens/screen-19.jpg",
       "imageAlt": "Story illustration for You Finally Reach the Councillor",
       "showMeter": true,
       "meter": {
@@ -608,7 +608,7 @@
         "You return on Sunday. The Councillor listens and says she'll inform the Assistant Engineer (AE).",
         "Will you wait for the AE to visit your neighbourhood?"
       ],
-      "image": "assets/images/screens/screen-20.png",
+      "image": "assets/images/screens/screen-20.jpg",
       "imageAlt": "Story illustration for The Councillor Hears You Out",
       "showMeter": true,
       "meter": {
@@ -631,7 +631,7 @@
       "description": [
         "The AE visits, assesses the damage, takes notes, and leaves. Days pass. Nothing happens."
       ],
-      "image": "assets/images/screens/screen-21.png",
+      "image": "assets/images/screens/screen-21.jpg",
       "imageAlt": "Story illustration for Silence after AE visit",
       "showMeter": true,
       "meter": {
@@ -668,7 +668,7 @@
       "description": [
         "The Councillor asks you to follow up at the Ward Office."
       ],
-      "image": "assets/images/screens/screen-22.png",
+      "image": "assets/images/screens/screen-22.jpg",
       "imageAlt": "Story illustration for Try the Ward Office",
       "showMeter": true,
       "meter": {
@@ -692,7 +692,7 @@
       "description": [
         "The AE never comes back after his visit. No one knows what happened. The group has quietly disbanded."
       ],
-      "image": "assets/images/screens/screen-23.png",
+      "image": "assets/images/screens/screen-23.jpg",
       "imageAlt": "Story illustration for The Group Loses Hope",
       "showMeter": true,
       "meter": {
@@ -715,7 +715,7 @@
       "description": [
         "At the Ward Office, the AE says workers are unavailable but promises the job will be done within a week. A few days later, a team from the Municipality arrives and patches sections of the road."
       ],
-      "image": "assets/images/screens/screen-24.png",
+      "image": "assets/images/screens/screen-24.jpg",
       "imageAlt": "Story illustration for Progress at the Ward Office",
       "showMeter": true,
       "meter": {
@@ -752,7 +752,7 @@
       "description": [
         "Your concern was well-founded. A few days later, the patchwork washes away in the rain. You return to the Councillor, who summons the AE."
       ],
-      "image": "assets/images/screens/screen-25.png",
+      "image": "assets/images/screens/screen-25.jpg",
       "imageAlt": "Story illustration for Nature’s verdict on the patchwork",
       "showMeter": true,
       "meter": {
@@ -775,7 +775,7 @@
       "description": [
         "It seemed like progress. Then the rain comes. A few days later, the patchwork washes away. You return to the Councillor, who summons the AE."
       ],
-      "image": "assets/images/screens/screen-26.png",
+      "image": "assets/images/screens/screen-26.jpg",
       "imageAlt": "Story illustration for Nature’s verdict on the patchwork",
       "showMeter": true,
       "meter": {
@@ -799,7 +799,7 @@
         "The AE says a proper fix needs far more funding than is available; the matter is beyond his authority. He asks you to take it up with the Councillor.",
         "What will you do now?"
       ],
-      "image": "assets/images/screens/screen-27.png",
+      "image": "assets/images/screens/screen-27.jpg",
       "imageAlt": "Story illustration for The Problem Is Bigger",
       "showMeter": true,
       "meter": {
@@ -823,7 +823,7 @@
         "The Councillor says the decision isn't hers to make. It must go before the Standing Committee — and that will take time.",
         "What will you do now?"
       ],
-      "image": "assets/images/screens/screen-28.png",
+      "image": "assets/images/screens/screen-28.jpg",
       "imageAlt": "Story illustration for How to get the funds",
       "showMeter": true,
       "meter": {
@@ -853,7 +853,7 @@
       "description": [
         "The Councillor agrees to forward your request to the Standing Committee."
       ],
-      "image": "assets/images/screens/screen-29.png",
+      "image": "assets/images/screens/screen-29.jpg",
       "imageAlt": "Story illustration for Standing Committee",
       "showMeter": true,
       "meter": {
@@ -895,7 +895,7 @@
         "The Councillor admits she hasn't had a chance to raise it yet — but promises to do so today. After several follow-ups, you learn the Standing Committee has rejected the request, citing a shortage of funds. The proposal is deferred indefinitely.",
         "What will you do now?"
       ],
-      "image": "assets/images/screens/screen-30.png",
+      "image": "assets/images/screens/screen-30.jpg",
       "imageAlt": "Story illustration for Rejection",
       "showMeter": true,
       "meter": {
@@ -940,7 +940,7 @@
       "description": [
         "The Mayor hears you out and agrees to speak to the Standing Committee on your behalf. Your group sees a ray of hope. It has been a few days since the Mayor agreed. Wait a little longer?"
       ],
-      "image": "assets/images/screens/screen-31.png",
+      "image": "assets/images/screens/screen-31.jpg",
       "imageAlt": "Story illustration for The Mayor Steps in",
       "showMeter": true,
       "meter": {
@@ -964,7 +964,7 @@
       "description": [
         "The Councillor says she'll try to raise the matter again when the time is right. Will you agree?"
       ],
-      "image": "assets/images/screens/screen-32.png",
+      "image": "assets/images/screens/screen-32.jpg",
       "imageAlt": "Story illustration for Still Waiting",
       "showMeter": true,
       "meter": {
@@ -988,7 +988,7 @@
       "description": [
         "You approach a Standing Committee member but get no satisfactory response. You've spent many days following up. What else can you do?"
       ],
-      "image": "assets/images/screens/screen-33.png",
+      "image": "assets/images/screens/screen-33.jpg",
       "imageAlt": "Story illustration for No Answers",
       "showMeter": true,
       "meter": {
@@ -1019,7 +1019,7 @@
       "description": [
         "The other members are no different. You've hit a dead end. You begin to wonder - is it even possible to fix this road?"
       ],
-      "image": "assets/images/screens/screen-34.png",
+      "image": "assets/images/screens/screen-34.jpg",
       "imageAlt": "Story illustration for All The Same",
       "showMeter": true,
       "meter": {
@@ -1043,7 +1043,7 @@
       "description": [
         "The Standing Committee approves the fund and agrees to treat this as priority."
       ],
-      "image": "assets/images/screens/screen-35.png",
+      "image": "assets/images/screens/screen-35.jpg",
       "imageAlt": "Story illustration for Funds approved",
       "showMeter": true,
       "meter": {
@@ -1074,7 +1074,7 @@
         "Weeks pass and nothing moves. The Councillor and AE tell you a contractor is needed — but no one has responded to the tender. The funds aren't enough to attract bids.",
         "What will you do now?"
       ],
-      "image": "assets/images/screens/screen-36.png",
+      "image": "assets/images/screens/screen-36.jpg",
       "imageAlt": "Story illustration for Who will do it",
       "showMeter": true,
       "meter": {
@@ -1118,7 +1118,7 @@
       "description": [
         "The Corporation releases additional funds. The tender attracts a contractor, and the road is fixed within a couple of weeks. Life on the road is safe again!"
       ],
-      "image": "assets/images/screens/screen-37.png",
+      "image": "assets/images/screens/screen-37.jpg",
       "imageAlt": "Story illustration for More Funds",
       "showMeter": true,
       "meter": {
@@ -1141,7 +1141,7 @@
       "description": [
         "You give it your best effort, but you don’t have time to deal with the complexity – you have other things which need your attention."
       ],
-      "image": "assets/images/screens/screen-38.png",
+      "image": "assets/images/screens/screen-38.jpg",
       "imageAlt": "Story illustration for You Can't Do It Yourself",
       "showMeter": true,
       "meter": {
@@ -1164,7 +1164,7 @@
       "description": [
         "This time, the MLA listens. He arranges for the necessary funds to be sanctioned."
       ],
-      "image": "assets/images/screens/screen-39.png",
+      "image": "assets/images/screens/screen-39.jpg",
       "imageAlt": "Story illustration for The MLA Comes Through",
       "showMeter": true,
       "meter": {
@@ -1187,7 +1187,7 @@
       "description": [
         "You did it. Your persistence paid off, and the road is finally fixed."
       ],
-      "image": "assets/images/screens/screen-40.png",
+      "image": "assets/images/screens/screen-40.jpg",
       "imageAlt": "Story illustration for Test of time",
       "showMeter": true,
       "meter": {
@@ -1223,7 +1223,7 @@
       "description": [
         "Thank you for stepping up. Your perseverance made the road safer for all. You don't want to go through this again and you don't want other citizens to face it either. What would you do to solve the challenges you faced?"
       ],
-      "image": "assets/images/screens/screen-41.png",
+      "image": "assets/images/screens/screen-41.jpg",
       "imageAlt": "Story illustration for What Would You Choose?",
       "showMeter": true,
       "meter": {
@@ -1274,7 +1274,7 @@
       "description": [
         "The city adopts road designs that accommodate utility work without repeated digging. Once built to this standard, disruption would be far less frequent. However, this needs significantly more funding and budget approvals."
       ],
-      "image": "assets/images/screens/screen-42.png",
+      "image": "assets/images/screens/screen-42.jpg",
       "imageAlt": "Story illustration for Reform: Better Infrastructure Planning",
       "showMeter": true,
       "meter": {
@@ -1304,7 +1304,7 @@
       "description": [
         "With skilled staff, the AE can tell you upfront that patchwork won't last and the ULB can do proper repairs without always relying on contractors. But the sewage department still digs up the road, pointing to a coordination problem this reform alone can't fix."
       ],
-      "image": "assets/images/screens/screen-43.png",
+      "image": "assets/images/screens/screen-43.jpg",
       "imageAlt": "Story illustration for Reform: Skilled Staff in the ULB",
       "showMeter": true,
       "meter": {
@@ -1334,7 +1334,7 @@
       "description": [
         "With more funds, the Corporation sanctions your repair much sooner. But the sewage department still digs up the road — funding alone can't bridge every gap."
       ],
-      "image": "assets/images/screens/screen-44.png",
+      "image": "assets/images/screens/screen-44.jpg",
       "imageAlt": "Story illustration for Reform: More Funds for the Municipal Corporation",
       "showMeter": true,
       "meter": {
@@ -1364,7 +1364,7 @@
       "description": [
         "With stronger roles in local decision-making, elected representatives could move everyday issues like road repairs forward with fewer procedural hurdles."
       ],
-      "image": "assets/images/screens/screen-45.png",
+      "image": "assets/images/screens/screen-45.jpg",
       "imageAlt": "Story illustration for Reform: Empowering Councillors",
       "showMeter": true,
       "meter": {
@@ -1394,7 +1394,7 @@
       "description": [
         "You still go through the full Standing Committee process, but this time, the road is built only after the sewage pipes are already in place. You wait longer, but the road is less likely to be dug up again soon."
       ],
-      "image": "assets/images/screens/screen-46.png",
+      "image": "assets/images/screens/screen-46.jpg",
       "imageAlt": "Story illustration for Reform: Better Inter-Departmental Coordination",
       "showMeter": true,
       "meter": {
@@ -1424,7 +1424,7 @@
       "description": [
         "You shuttled between offices, chased funds, and fought bureaucracy only for the road to be dug up again. No single reform fixes this. Only when they work together can our cities truly improve. That's the City Systems approach."
       ],
-      "image": "assets/images/screens/screen-47.png",
+      "image": "assets/images/screens/screen-47.jpg",
       "imageAlt": "Story illustration for Thank You for Playing",
       "showMeter": true,
       "meter": {
@@ -1447,7 +1447,7 @@
       "description": [
         "Days later, a motorcycle hits a pothole. Two people are badly injured. It makes the news briefly, then fades. The road stays broken."
       ],
-      "image": "assets/images/screens/screen-48.png",
+      "image": "assets/images/screens/screen-48.jpg",
       "imageAlt": "Story illustration for And It Happens Again",
       "showMeter": true,
       "meter": {
@@ -1465,7 +1465,7 @@
           "id": "screen-48-check-out-the-reforms",
           "label": "Check out the reforms",
           "type": "goto",
-          "target": "screen-41",
+          "target": "screen-51",
           "style": "secondary"
         }
       ]
@@ -1477,7 +1477,7 @@
       "description": [
         "Without follow-up, the issue fades. Residents move on. The road stays broken."
       ],
-      "image": "assets/images/screens/screen-49.png",
+      "image": "assets/images/screens/screen-49.jpg",
       "imageAlt": "Story illustration for The Matter Is Dropped",
       "showMeter": true,
       "meter": {
@@ -1488,7 +1488,7 @@
           "id": "screen-49-there-has-to-be-a-better-way-explore-reforms",
           "label": "There has to be a better way - explore reforms",
           "type": "goto",
-          "target": "screen-41",
+          "target": "screen-51",
           "style": "primary"
         }
       ]
@@ -1500,7 +1500,7 @@
       "description": [
         "Civic problems take time. But ignored roads stay dangerous for everyone who uses them. Staying engaged keeps the pressure on."
       ],
-      "image": "assets/images/screens/screen-50.png",
+      "image": "assets/images/screens/screen-50.jpg",
       "imageAlt": "Story illustration for When We Walk Away",
       "showMeter": true,
       "meter": {
@@ -1530,7 +1530,7 @@
       "description": [
         "You stepped away and that’s okay. These problems can be difficult to navigate. But lasting change usually needs systemic changes. What would you focus on?"
       ],
-      "image": "assets/images/screens/screen-41.png",
+      "image": "assets/images/screens/screen-41.jpg",
       "imageAlt": "Story illustration for What Could Be Done Differently?",
       "showMeter": true,
       "meter": {
