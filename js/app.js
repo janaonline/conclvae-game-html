@@ -1,6 +1,4 @@
 (function () {
-  var EXPECTED_SCREEN_COUNT = 50;
-
   document.addEventListener("DOMContentLoaded", init);
 
   function init() {
@@ -264,8 +262,8 @@
     var actionIds = {};
     var screens = story && Array.isArray(story.screens) ? story.screens : [];
 
-    if (screens.length !== EXPECTED_SCREEN_COUNT) {
-      throw new Error("The story file does not contain the expected " + EXPECTED_SCREEN_COUNT + " screens.");
+    if (!screens.length) {
+      throw new Error("The story file does not contain any screens.");
     }
 
     for (var screenIndex = 0; screenIndex < screens.length; screenIndex += 1) {
