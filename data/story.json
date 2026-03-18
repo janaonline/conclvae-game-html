@@ -111,7 +111,7 @@
       "type": "result",
       "title": "About It",
       "description": [
-        "This Journey has been developed to showcase systemic challenges citizens face to fix a broken road. Janaagraha has been advocating for many reforms to solve these challenges."
+        "This journey has been developed to showcase systemic challenges citizens face to fix a broken road. Janaagraha has been advocating for many reforms to solve these challenges."
       ],
       "image": "assets/images/screens/screen-04.png",
       "imageAlt": "Story illustration for About It",
@@ -1219,12 +1219,12 @@
     {
       "id": "screen-41",
       "type": "choice",
-      "title": "What Would You Fix?",
+      "title": "What Would You Choose?",
       "description": [
         "Thank you for stepping up. Your perseverance made the road safer for all. You don't want to go through this again and you don't want other citizens to face it either. What would you do to solve the challenges you faced?"
       ],
       "image": "assets/images/screens/screen-41.png",
-      "imageAlt": "Story illustration for What Would You Fix?",
+      "imageAlt": "Story illustration for What Would You Choose?",
       "showMeter": true,
       "meter": {
         "mode": "inherit"
@@ -1515,11 +1515,62 @@
           "style": "primary"
         },
         {
-          "id": "screen-50-exit-game-and-check-out-reforms",
+          "id": "screen-50-walk-away",
           "label": "Walk away",
           "type": "goto",
-          "target": "screen-04",
+          "target": "screen-51",
           "style": "secondary"
+        }
+      ]
+    },
+    {
+      "id": "screen-51",
+      "type": "choice",
+      "title": "What Could Be Done Differently?",
+      "description": [
+        "You stepped away and that’s okay. These problems can be difficult to navigate. But lasting change usually needs systemic changes. What would you focus on?"
+      ],
+      "image": "assets/images/screens/screen-41.png",
+      "imageAlt": "Story illustration for What Could Be Done Differently?",
+      "showMeter": true,
+      "meter": {
+        "mode": "inherit"
+      },
+      "actions": [
+        {
+          "id": "screen-51-plan-better-for-roads-and-utilities-to-avoid-repeated-digging",
+          "label": "Plan better for roads and utilities to avoid repeated digging",
+          "type": "goto",
+          "target": "screen-42",
+          "style": "option"
+        },
+        {
+          "id": "screen-51-hire-more-skilled-personnel-in-the-ulb",
+          "label": "Hire more skilled personnel in the ULB",
+          "type": "goto",
+          "target": "screen-43",
+          "style": "option"
+        },
+        {
+          "id": "screen-51-give-the-municipal-corporation-more-funds-for-maintenance",
+          "label": "Give the Municipal Corporation more funds for maintenance",
+          "type": "goto",
+          "target": "screen-44",
+          "style": "option"
+        },
+        {
+          "id": "screen-51-give-the-councillors-more-power-and-accountability",
+          "label": "Give the Councillors more power and accountability",
+          "type": "goto",
+          "target": "screen-45",
+          "style": "option"
+        },
+        {
+          "id": "screen-51-better-coordination-between-the-ulb-sewage-department-and-other-agencies",
+          "label": "Better coordination between the ULB, sewage department, and other agencies",
+          "type": "goto",
+          "target": "screen-46",
+          "style": "option"
         }
       ]
     }
